@@ -1,0 +1,23 @@
+- centre: University of Granada
+  study: Master Degree in Data Science
+  begin: October, 2018
+  end: September, 2019
+  comments:
+    - name: Grade
+      text: 10
+
+- centre: University of Las Palmas de Gran Canaria
+  study: Bachellor Degree in Computer Science
+  begin: September, 2019
+  end: September, 2019
+  comments:
+    - name: Grade
+      text: 10
+
+- centre: University of Las Palmas de Gran Canaria
+  study: Bachellor Degree in Business Management
+  begin: October, 2018
+  end: September, 2019
+  comments:
+    - name: Grade
+      text: 10

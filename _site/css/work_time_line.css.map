@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "work_time_line.css",
+	"sources": [
+		"work_time_line.scss"
+	],
+	"sourcesContent": [
+		"/* Timeline holder */\nul.timeline {\n    list-style-type: none;\n    position: relative;\n    padding-left: 1.5rem;\n}\n\n /* Timeline vertical line */\nul.timeline:before {\n    content: ' ';\n    background: #fff;\n    display: inline-block;\n    position: absolute;\n    left: 16px;\n    width: 4px;\n    height: 100%;\n    z-index: 400;\n    border-radius: 1rem;\n}\n\nli.timeline-item {\n    margin: 20px 0;\n}\n\n/* Timeline item arrow */\n.timeline-arrow {\n    border-top: 0.5rem solid transparent;\n    border-right: 0.5rem solid #fff;\n    border-bottom: 0.5rem solid transparent;\n    display: block;\n    position: absolute;\n    left: 2rem;\n}\n\n/* Timeline item circle marker */\nli.timeline-item::before {\n    content: ' ';\n    background: #ffc107;\n    display: inline-block;\n    position: absolute;\n    border-radius: 50%;\n    border: 3px solid #fff;\n    left: 11px;\n    width: 14px;\n    height: 14px;\n    z-index: 400;\n    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);\n}"
+	],
+	"names": [],
+	"mappings": "AAAA,qBAAqB;AACrB,AAAA,EAAE,AAAA,SAAS,CAAC,EACR,eAAe,EAAE,IAAI,EACrB,QAAQ,EAAE,QAAQ,EAClB,YAAY,EAAE,MAAM,GACvB;;AAEA,4BAA4B;AAC7B,AAAA,EAAE,AAAA,SAAS,AAAA,OAAO,CAAC,EACf,OAAO,EAAE,GAAG,EACZ,UAAU,EAAE,IAAI,EAChB,OAAO,EAAE,YAAY,EACrB,QAAQ,EAAE,QAAQ,EAClB,IAAI,EAAE,IAAI,EACV,KAAK,EAAE,GAAG,EACV,MAAM,EAAE,IAAI,EACZ,OAAO,EAAE,GAAG,EACZ,aAAa,EAAE,IAAI,GACtB;;AAED,AAAA,EAAE,AAAA,cAAc,CAAC,EACb,MAAM,EAAE,MAAM,GACjB;;AAED,yBAAyB;AACzB,AAAA,eAAe,CAAC,EACZ,UAAU,EAAE,wBAAwB,EACpC,YAAY,EAAE,iBAAiB,EAC/B,aAAa,EAAE,wBAAwB,EACvC,OAAO,EAAE,KAAK,EACd,QAAQ,EAAE,QAAQ,EAClB,IAAI,EAAE,IAAI,GACb;;AAED,iCAAiC;AACjC,AAAA,EAAE,AAAA,cAAc,AAAA,QAAQ,CAAC,EACrB,OAAO,EAAE,GAAG,EACZ,UAAU,EAAE,OAAO,EACnB,OAAO,EAAE,YAAY,EACrB,QAAQ,EAAE,QAAQ,EAClB,aAAa,EAAE,GAAG,EAClB,MAAM,EAAE,cAAc,EACtB,IAAI,EAAE,IAAI,EACV,KAAK,EAAE,IAAI,EACX,MAAM,EAAE,IAAI,EACZ,OAAO,EAAE,GAAG,EACZ,UAAU,EAAE,CAAC,CAAC,CAAC,CAAC,GAAG,CAAC,kBAAkB,GACzC"
+}

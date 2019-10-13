@@ -2,19 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>I'm Juan Isern</title>
-	 <meta charset="utf-8">
- <meta name="viewport" content="width=device-width, initial-scale=1">
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
- <link href="/css/aos.css" rel="stylesheet">
- <link rel="stylesheet" href="/css/styles.css">
- <link rel="stylesheet" href="/css/work_time_line.css">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
- <script src="https://kit.fontawesome.com/b8bbe799a4.js" crossorigin="anonymous">
- </script>
- <link rel="stylesheet" href="/css/animate.css">
+    <title>{{ site.tab_text }}</title>
+	{% include head.html %}
 </head>
     
 <body>
@@ -30,11 +19,11 @@
                     </div>
                     <div class="about text-center">
                         <h2 class="title">
-                            <a href="/">Juan Isern</a>
+                            <a href="/">{{ site.title }}</a>
                         </h2>
                     </div>
                     <div class="bio text-center">
-                        <p class="m0">Data scientist.</p>
+                        <p class="m0">{{ site.description }}</p>
                     </div>
                     <hr class="dashed">
                     <div class="social text-center">
@@ -44,10 +33,10 @@
                             <li><a href="/contact/">Contact</a></li>
                         </ul>
                         <ul class="sm p0 m0a">
-                            <li><a href="https://linkedin.com/in/juan-isern"><i class="fab fa-linkedin"></i></a></li>
-                            <li><a href="https://github.com/JuanIsernGhosn"><i class="fab fa-github"></i></a></li> 
-                            <li><a href="https://instagram.com/juaniserng"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                            <li><a href="https://twitter.com/juan_isern"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="https://linkedin.com/in/{{ site.linkedin_username }}"><i class="fab fa-linkedin"></i></a></li>
+                            <li><a href="https://github.com/{{ site.github_username }}"><i class="fab fa-github"></i></a></li> 
+                            <li><a href="https://instagram.com/{{ site.instagram_username }}"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="https://twitter.com/{{ site.twitter_username }}"><i class="fab fa-twitter"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -57,32 +46,12 @@
                 <div class="main-container position-relative shadow">
                     
                     <div class="page">
-                    	<h2>Page not found</h2>
+                    	<h2>{{ page.title }}</h2>
 
                     	<hr class="dashed">
                      
                         <div class="content">
-                            <style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
-
-<div class="container">
-  <h1>404</h1>
-
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
-
+                            {{ content }}
                         </div>
                     
                         <hr class="dashed">
@@ -103,11 +72,7 @@
         </div>
     </div>
 
- <script src="/js/aos.js"></script>
- <script>
- 	AOS.init();
- </script>
-
+{% include footer_loads.html %}
 
 </body>
 </html>
