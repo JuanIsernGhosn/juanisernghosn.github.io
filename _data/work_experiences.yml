@@ -1,14 +1,14 @@
 - company: University of Granada
   begin: April 2019
-  end: April 2019
-  comments: Soy científico de datos Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has.
+  end: Today
+  comment: "<b>Data scientist</b>: Researcher in the Department of Architecture and Computer Technology for the project &quotFrom the cloud to the edge - smart Integration and OPtimisation Technologies for highly efficient Image and VIdeo processing Systems&quot (FITOPTIVIS)"
 
-- company: University of Granada
-  begin: April 2019
-  end: April 2019
-  comment: Soy científico de datos Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has.
+- company: University of Las Palmas de Gran Canaria
+  begin: June 2018
+  end: August 2018
+  comment: "<b>Data scientist</b>: Collaboration grant in project &quotStrategic Plan 2025 of the Municipality of La Aldea de San Nicolás: Situation diagnosis&quot. I Conducted text mining analyses of the topics treated in sustainability reports. I used different sets of natural language processing (NLP) tools, resulting a new methodology useful for future similar analyses."
 
-- company: University of Granada
-  begin: April 2019
-  end: April 2019
-  comment: Soy científico de datos Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has.
+- company: Loquat Solutions
+  begin: September 2017
+  end: February 2018
+  comment: "<b>Software engineer</b>: Participated in installing scalable information system for the regional government of Canary Islands. Design of modules for accounting and stock management present in commercial software. Assisted in product research and competition analysis: identifying and defining markets, product market and geographic market."

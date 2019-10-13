@@ -1,11 +1,77 @@
-- name: Python
-  color: (255, 206, 57)
-  icon: fab fa-python
+- name: Statistics
+  color: (137, 192, 121)
+  icon: far fa-chart-bar
+
+- name: Machine Learning
+  color: (25, 51, 73)
+  icon: 
+
+- name: NLP
+  color: (214, 154, 155)
+  icon: 
 
 - name: Python
   color: (255, 206, 57)
   icon: fab fa-python
 
-- name: Python
-  color: (255, 206, 57)
-  icon: fab fa-python
+- name: Deep Learning
+  color: (43, 66, 223)
+  icon: fas fa-brain
+
+- name: Keras
+  color: (191, 39, 26)
+  icon:
+
+- name: Scikit-Learn
+  color: (230, 153, 76)
+  icon: 
+
+- name: R
+  color: (48, 97, 172)
+  icon: fab fa-r-project
+
+- name: Ggplot
+  color: (59, 59, 59)
+  icon:
+
+- name: Caret
+  color: (216, 126, 66)
+  icon: 
+
+- name: Dplyr
+  color: (219, 132, 57)
+  icon: 
+
+- name: OOP
+  color: (0,0,0)
+  icon: 
+
+- name: Java
+  color: (216, 56, 51)
+  icon: fab fa-java
+
+- name: Kotlin
+  color: (232,142,61)
+  icon: 
+
+- name: SQL
+  color: (222,48,33)
+  icon: fas fa-database
+
+- name: Financial accounting
+  color: (137, 192, 121)
+  icon: fas fa-file-invoice-dollar
+
+- name: Cost accounting
+  color: (73, 66, 223)
+  icon: fas fa-search-dollar
+
+- name: Business strategy
+  color: (25, 51, 73)
+  icon: fas fa-chess
+
+
+
+
+
+

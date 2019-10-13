@@ -1,4 +1,46 @@
-- name: University of Granada
-  institution: Master Degree in Data Science
-  date: October, 2018
-  description: Mola
+- name: "Cambridge English: First (FCE) – CEFR level B2"
+  institution: "Cambridge Assessment English"
+  date: June 2018
+  url: "/assets/documents/B2-Results.pdf"
+
+- name: "Statistical Inference"
+  institution: "Johns Hopkins University (Coursera)"
+  date: Feb. 2019
+  url: "https://www.coursera.org/account/accomplishments/certificate/SXGQH2HR5Z3E?utm_medium=certificate&utm_source=link&utm_campaign=copybutton_certificate"
+
+- name: "Reproducible Research"
+  institution: "Johns Hopkins University (Coursera)"
+  date: Dec. 2018
+  url: "https://www.coursera.org/account/accomplishments/certificate/NT254WUSDYAX?utm_medium=certificate&utm_source=link&utm_campaign=copybutton_certificate"
+
+- name: "Exploratory Data Analysis"
+  institution: "Johns Hopkins University (Coursera)"
+  date: Nov. 2018
+  url: "https://www.coursera.org/account/accomplishments/certificate/P8WL95GZED2S?utm_medium=certificate&utm_source=link&utm_campaign=copybutton_certificate"
+
+- name: "Getting and Cleaning Data"
+  institution: "Johns Hopkins University (Coursera)"
+  date: Mar. 2018
+  url: "https://www.coursera.org/account/accomplishments/certificate/7PCVD8YZWYNW?utm_medium=certificate&utm_source=link&utm_campaign=copybutton_certificate"
+
+- name: "R Programming"
+  institution: "Johns Hopkins University (Coursera)"
+  date: Feb. 2018
+  url: "https://www.coursera.org/account/accomplishments/certificate/DVE7CCL8HHQQ?utm_medium=certificate&utm_source=link&utm_campaign=copybutton_certificate"
+
+- name: "The Data Scientist’s Toolbox"
+  institution: "Johns Hopkins University (Coursera)"
+  date: Jan. 2018
+  url: "https://www.coursera.org/account/accomplishments/certificate/P79XT5EWQCC9?utm_medium=certificate&utm_source=link&utm_campaign=copybutton_certificate"
+
+- name: "Big Data: el valor añadido de los datos en su negocio"
+  institution: "Catholic university of murcia (MIRÍADAX)"
+  date: May 2016
+  url: "https://certificados.miriadax.net/tzjw4s1b"
+
+
+
+
+
+
+

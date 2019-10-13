@@ -1,23 +1,28 @@
 - centre: University of Granada
   study: Master Degree in Data Science
-  begin: October, 2018
-  end: September, 2019
+  begin: October 2018
+  end: September 2019
   comments:
-    - name: Grade
-      text: 10
-
-- centre: University of Las Palmas de Gran Canaria
-  study: Bachellor Degree in Computer Science
-  begin: September, 2019
-  end: September, 2019
-  comments:
-    - name: Grade
-      text: 10
+    - name: Average grade
+      text: 9.37
+    - name: Master's thesis
+      text: "&quotCritical infrastructure smart video-surveillance system&quot (Grade: <b>9.6</b>)"
 
 - centre: University of Las Palmas de Gran Canaria
   study: Bachellor Degree in Business Management
-  begin: October, 2018
-  end: September, 2019
+  begin: September 2013
+  end: June 2018
   comments:
-    - name: Grade
-      text: 10
+    - name: Average grade
+      text: 8.31
+    - name: Final proyect
+      text: "&quotApplication of text mining and NLP for the identification of trends in the drafting of CSR reports according to the context of the company&quot (Grade: <b>10 with honors</b>)"
+
+- centre: University of Las Palmas de Gran Canaria
+  study: Bachellor Degree in Computer Science
+  begin: September 2013
+  end: June 2018
+  comments:
+    - name: Average grade
+      text: 8.31
+
