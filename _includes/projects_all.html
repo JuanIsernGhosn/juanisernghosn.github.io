@@ -1,21 +1,25 @@
 <p>Descubre algunos de mis proyectos:</p>
 
-  <div class="card-columns">
+  <div class="card-columns row">
 
-    {% for post in site.categories.blog1 %}
+    {% for project in site.categories.projects %}
+
+    <div class="col-12 col-md-6 col-xl-4 card-column">
 
       <div class="card" data-aos="fade-up">
-        <a href="#">
+        <a href="{{ project.url }}">
         <img class="card-img-top" src="https://images.unsplash.com/photo-1535025639604-9a804c092faa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6cb0ceb620f241feb2f859e273634393&auto=format&fit=crop&w=500&q=80" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">{{ post.title }}</h5>
+          <h5 class="card-title">{{ project.title }}</h5>
           <p class="card-text">
-            {{ post.description }}
+            {{ project.description }}
           </p>
-          <p class="card-text"><small class="text-muted"><i class="far fa-clock"></i>{{ post.read_time }} mins. read<i class="fas fa-calendar-alt"></i>{{ post.date | date: "%-d %b %y" }}</small></p>
-      </div>
+          <p class="card-text"><small class="text-muted"><i class="far fa-clock"></i>{{ project.read_time }} mins. read<i class="fas fa-calendar-alt"></i>{{ project.date | date: "%-d %b %y" }}</small></p>
+        </div>
         </a>
       </div>
+
+    </div>
 
       {% endfor %}
 

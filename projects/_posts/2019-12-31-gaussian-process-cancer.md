@@ -1,11 +1,11 @@
 ---
-layout: main_structure
+layout: project
 title: "Project 1"
 description: Lorem ipsum dolor sit amet consectetur adipiscing elit metus gravida hendrerit vel augue neque cras, rutrum a aptent convallis rhoncus.
 description_image: 2019-12-31-gaussian-process-cancer.png
 date: 2019-10-08 00:15:23 +0200
 read_time: 3
-categories: jekyll update
+categories:
 ---
 
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
