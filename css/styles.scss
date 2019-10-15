@@ -262,11 +262,13 @@ ul {
   100% { opacity: 0.0; }
 }
 
-.project-img {
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 100%;
-    border-bottom: 1px solid #eee;
+.project-image{
+  background-size: cover;
+  width: 100%;
+  height: 450px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-bottom: 0.2em;
 }
 
 .card-column {
@@ -292,15 +294,6 @@ ul {
 
 .contact-form-text{
     color:#ffc107;
-}
-
-.project-image{
-  background-size: cover;
-  width: 100%;
-  height: 450px;
-  background-repeat: no-repeat;
-  background-position: center center;
-  margin-bottom: 0.2em;
 }
 
 .card {
