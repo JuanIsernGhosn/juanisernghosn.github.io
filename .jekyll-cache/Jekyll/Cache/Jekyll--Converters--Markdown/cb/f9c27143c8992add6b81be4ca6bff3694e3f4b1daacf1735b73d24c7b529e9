@@ -1,0 +1,277 @@
+I"�<p>The document presented below corresponds to the final report generated after the coral classification work of the <strong>RSMAS data set</strong>. This project requires the use of Deep Learning, in order to generate models that maximize the accuracy of the classification of other images of the same set that have not been seen by the Deep Learning model.</p>
+
+<p>The library that has been used to develop the models presented in this practice is the Keras high-level neural network API, which implements a set of functionalities that facilitate the development of neural network architectures and their correct training and adjustment. Thus, the main approach used for the development of models and that, to a large extent, is also facilitated by Keras, has been the generation of models by means of <strong>Transfer Learning and Fine Tuning</strong>.</p>
+
+<h2 id="rsmas-data-set">RSMAS data set</h2>
+
+<p>There are currently eight open reference points used for the classification of underwater corals. The RSMAS set, one of the most recent and largest RGB datasets containing corals, has been used in this competition. This dataset is composed of images of parts of corals, which mainly capture the texture of the corals rather than the overall structure of the coral in question.
+Thus, the RSMAS image set contains 766 images of size 256×256. The images were collected by divers from the University of Miami’s Rosenstiel School of Marine and Atmospheric Science. These images were taken with different cameras in different locations and have been classified into 14 classes, which are labeled with the Latin names of the coral species. Several images of the data set are shown in Figure 1. For this project, the RSMAS image set has been divided as follows:</p>
+
+<ul>
+  <li>
+    <p>A training subset, consisting of 620 images from the original set, with the following distribution by class:</p>
+
+    <ul>
+      <li>ACER: 88</li>
+      <li>SALW: 62</li>
+      <li>CNAT: 46</li>
+      <li>DANT: 51</li>
+      <li>DSTR: 20</li>
+      <li>GORG: 48</li>
+      <li>MALC: 18</li>
+      <li>MCAV: 64</li>
+      <li>MMEA: 44</li>
+      <li>MONT: 23</li>
+      <li>PALY: 26</li>
+      <li>SPO: 71</li>
+      <li>SSID: 30</li>
+      <li>TUNI: 29</li>
+    </ul>
+  </li>
+  <li>
+    <p>A test subset, consisting of the remaining 146 images from the data set. This test subset has in turn been divided into two others:</p>
+
+    <ul>
+      <li>29% of it is used for public classification during the project, so that one can observe the model’s performance and get an idea of the potential with respect to the rest of the implemented models.</li>
+      <li>The other 71% is used for the private classification, which is released once the project is over, so that it is possible to have an idea of the generalization capacity of the models generated on previously untested data.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="pre-processing-used">Pre-processing used</h1>
+
+<p>In order to facilitate the learning of our model, several pre-processing tasks have been carried out on our images. Thus, in this section we present these tasks, emphasizing their relevance, why they have been proposed and how they have been developed.</p>
+
+<h2 id="correction-of-the-luminosity-of-the-images">Correction of the luminosity of the images</h2>
+
+<p>After carrying out a first visualization of the images, we noticed that in some classes there were certain images that, due to their capture conditions, made it difficult to visualize certain details and that therefore, did not allow to extract information that could be considered completely representative of the class in question, either because of the dim light with which the image had been taken or because of the excessive brightness present in the image.</p>
+
+<p>Thus, in order to solve this problem, the intensity of the images was corrected. To do this, and at first, the colour space with which the images were loaded (originally in RGB) was changed to YCrCb, where the Y channel represents the luma or luminosity component of the image, while Cb and Cr are the chrominance components, which differ from blue and differ from red. This change of color space was done by one of the OpenCV functions and the line in question is shown below:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">img_YCrCb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2YCrCb</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The technique used to improve the contrast of our images was the equalization of the histogram. This is a transformation that aims to obtain for an image a histogram with a uniform distribution. Specifically, we made use of an algorithm called CLAHE (Contrast Limited Adaptive Histogram Equalization) and its concrete implementation of OpenCV.</p>
+
+<p>For this adaptive histogram equalization, the image is divided into small blocks (8x8 by default in OpenCV). Then, each of these blocks are equalized individually so that in a small area, the histogram would be limited to a small region. In addition, to avoid amplifying existing noise, a contrast limitation is applied, so that if in any of the cells of the histogram it is above the specified contrast limit (default 40 in OpenCV), these pixels are cut out and distributed evenly in other cells. The lines of code needed to carry out this preprocessing are shown below:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">clahe</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">createCLAHE</span><span class="p">(</span><span class="n">clipLimit</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">tileGridSize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">cl1</span> <span class="o">=</span> <span class="n">clahe</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">img_YCrCb</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">img_YCrCb</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">cl1</span>
+<span class="n">img_RGB</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img_YCrCb</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_YCrCb2RGB</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Figure 1 below shows one of the images of the training set before and after contrast correction:</p>
+
+<p class="text-center">
+  <img src="/assets/img/2019-04-23-dl-corals/hist.png" width="90%" title="Figure 1. Image before and after contrast correction" />
+</p>
+
+<h2 id="gaussian-blur">Gaussian blur</h2>
+
+<p>As we have already commented in the previous section, after carrying out the intensity correction of the colours in the images, an increase in the detail of the textures of the corals and in the performance of our models could be appreciated. Although this is positive, since the image with which our model is trained is of higher quality, it is also known that this may result in an over-adjustment of the model, even more so in such a reduced data set.</p>
+
+<p>Therefore, a Gaussian blur was applied to the images, so that the edges and details were not so defined and allowed a better generalization of the model. In reviewing the literature, it was concluded that this technique has proven to be very useful in pre-processing images in computer vision tasks, and specifically in neural networks and, finally, in Deep Learning. The Gaussian blur function used is the one implemented by OpenCV and the concrete line of code made is the following:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">img_RGB</span><span class="p">,(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Figure 2 below shows a picture of the training set before and after the Gaussian blur:</p>
+
+<p class="text-center">
+  <img src="/assets/img/2019-04-23-dl-corals/gauss.png" width="90%" title="Figure 2. Image before and after Gaussian blur." />
+</p>
+
+<h2 id="data-augmentation">Data augmentation</h2>
+
+<p>First of all, one of the first approaches used has been to generate new images in a synthetic way by means of different transformations of the original images. This technique is commonly known as Data Augmentation and its use is quite common, especially in situations where the size of the dataset is very small, which makes it difficult for our model to describe the whole domain that underlies our classification problem and that, therefore, tends to over-adjust.</p>
+
+<p>In the Keras library, the accomplishment of the Data Augmentation is relatively simple, as it has implemented an ImageDataGenerator object that, as its name indicates, dynamically generates images in the training process of the model, following the transformations indicated as parameters in its instantiation. The following example shows the instantiation of an ImageDataGenerator object with the parameters that have been used during the competition in the different submissions:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">datagen</span> <span class="o">=</span> <span class="n">ImageDataGenerator</span><span class="p">(</span>
+    <span class="n">featurewise_center</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="n">featurewise_std_normalization</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="n">rescale</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span>
+    <span class="n">zoom_range</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span>
+    <span class="n">rotation_range</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span>
+    <span class="n">horizontal_flip</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="n">validation_split</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Each of the different parameters, as well as the values they have been tested with, are described below:</p>
+
+<ul>
+  <li><strong>featurewise_center</strong>: Sets the average of the data to 0, subtracting the average of the variables at the data set level.</li>
+  <li><strong>featurewise_std_normalization</strong>: Divides the data by the standard deviation of the variables at data set level.</li>
+  <li><strong>rescale</strong>: With this parameter, each pixel value in the image is multiplied by a past constant. In our case, the times we have used this option have been to include the data of each image in an interval [0,1], for which it has been necessary to multiply these by the inverse of the maximum possible value in a RGB channel: 1/255.</li>
+  <li><strong>zoom_range</strong>: It consists in making a random zoom in the image in a determined range. Thus, given x, each image is resized in the interval [1-x,1+x]. The zoom values tested have been 0.2, 0.3 and 0.4, obtaining the best results with the second value.</li>
+  <li><strong>rotation_range</strong>: This transformation consists in randomly rotating the images in an angle that will be the maximum passed by parameter. Given a value of y, each image is rotated in an angle contained in the interval [0, y].</li>
+  <li><strong>Horizontal_flip</strong>: It consists in flipping the images horizontally in a random way.</li>
+  <li><strong>validation_split</strong>: Defines the percentage of the data set that will be used for validation after each period. Due to the size of the image set, it was set to 0.2 so that there would be several images of the same classes.</li>
+</ul>
+
+<p>Although in the previous object it allows to carry out a standardization of the training data when performing the Data Augmentation, in the same way, a normalization of the test data has to be done so that they are centered and scaled in the same way and that allows the predictions to be done correctly. Thus, this transformation on the test data has been done as follows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x_test</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_test</span> <span class="o">-</span> <span class="n">datagen</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">datagen</span><span class="o">.</span><span class="n">std</span> <span class="o">+</span> <span class="mf">0.000001</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Next, Figure 3 shows a set of images generated synthetically as a result of the application of the previously commented transformations on images to which their intensity was normalized and to which a Gaussian filter was applied.</p>
+
+<p class="text-center">
+  <img src="/assets/img/2019-04-23-dl-corals/aug.png" width="90%" title="Figure 3. Nine images generated by Data Augmentation (Keras)." />
+</p>
+
+<h1 id="models-used">Models used</h1>
+
+<p>As stated in the Introduction section above, one of the advantages we have taken advantage of with Deep Learning techniques is the ability to do Transfer Learning. With this technique, what we achieve is to take advantage of the characteristics that the convolutional layers have extracted in another problem where the amount of data was higher, and to train the final layers for our problem. This technique is widely used and leads to very good results in a variety of problems.</p>
+
+<p>To take advantage of this technique we have made use of three models widely used in the literature: VGG-16, Resnet-50 and Xception.</p>
+
+<h2 id="vgg-16">VGG-16</h2>
+
+<p>The VGG network was proposed by Simonyan and Zisserman in their 2014 article <em>Very Deep Convolutional Networks for Large Scale Image Recognition</em>.</p>
+
+<p>This network is characterized by its simplicity. It consists of convolution layers with 3x3 kernels on top of each other. In addition, the dimensionality is reduced with a MaxPooling layer. Finally, two layers of 4096 neurons followed by a dense output layer with a Softmax activation function.</p>
+
+<p>To make use of what we have learned in another data set it is necessary to add new layers on this architecture, which will be the ones we will train. We also tried to retrain some of the convolutional layers of the model but obtained worse results. The layers we have added are the following:</p>
+
+<ul>
+  <li><strong>Global Avarage Pooling</strong>: This layer has been used in recent years as an overfitting prevention technique. What it does is reduce the dimensions that are in the previous layer, let’s call them (h x w x d) to (1 x 1 x d).  What is done is, for each filter size (h x w), an average to leave it in a single value. In this way we also reduce the number of network parameters.</li>
+  <li><strong>Dropout</strong>: This layer is also a widely used one to reduce the over-adjustment. In each iteration a random percentage N of connections between the neurons of the dense layers is blocked, so that not all of them will connect to all of them. The ranges between which we moved were between 0.25 and 0.5.</li>
+  <li><strong>Dense</strong>: A dense layer of N neurons These N neurons were chosen in the process of tuning the hyperparameters. The ranges we moved between were between 512 and 1024.</li>
+  <li><strong>Dropout</strong>: Another dropout layer to prevent further over-tuning.</li>
+  <li><strong>Dense</strong>: A dense layer of N neurons. These N neurons were chosen in the process of tuning the hyperparameters. The ranges we moved between were between 512 and 1024.</li>
+  <li><strong>Dense</strong>: The output layer with 14 neurons one per class.</li>
+</ul>
+
+<p class="text-center">
+  <img src="/assets/img/2019-04-23-dl-corals/vgg16.png" width="90%" title="Figure 4. Example of VGG-16 architecture" />
+</p>
+
+<h2 id="resnet-50">Resnet-50</h2>
+
+<p>Unlike traditional sequential network architectures such as AlexNet, OverFeat and VGG, ResNet is instead a form that is based on micro-architecture modules (also called “network within network architectures”).
+The term micro-architecture refers to the set of “blocks” used to build the network. A collection of micro-architecture “blocks” (along with their standard layers of convolution, pooling, etc.) leads to the macro-architecture (i.e., the final network itself).</p>
+
+<p>First introduced by He et al. in their 2015 article, Deep Residual Learning for Image Recognition, the ResNet architecture has become a seminal work, demonstrating that extremely deep networks can be trained using standard DMS (and a reasonable initialisation function) through the use of residual modules.</p>
+
+<p>As with the VGG-16 architecture, the layers described above were also added here. These layers were the ones trained for our specific problem.</p>
+
+<p class="text-center">
+  <img src="/assets/img/2019-04-23-dl-corals/resnet50.png" width="50%" title="Figure 5. Example of a residual block proposed by He et. al. in 2015" />
+</p>
+
+<h2 id="xception">Xception</h2>
+
+<p>Xception is an architecture presented by F. Chollet, creator of Keras, in 2017. It was based on the Inception V3 architecture, presented by Google for the Imagenet competition. However, Xception presents some modifications that allow the results obtained by Inception V3 to be improved by reducing the number of parameters that were used in Inception V3.</p>
+
+<p>For this purpose an element of Inception V3 is modified, <em>Depthwise Separable Convolution</em>. This block consists of a convolution of (nxn) which is then followed by a 1x1 convolution. However, in Xception, the order is altered. However, in Xception, the order is altered. First the 1x1 convolution is applied and then the (nxn) convolutions are applied. In addition, between the convolutions no trigger function is applied. This led the author to better results in the data sets.</p>
+
+<p>As with the two previous architectures, final layers were used on the model that were the trained layers.</p>
+
+<p class="text-center">
+  <img src="/assets/img/2019-04-23-dl-corals/xception.png" width="90%" title="Figure 6. Xception architecture presented by F. Chollet" />
+</p>
+
+<h1 id="tuning-the-network-hyperparameters">Tuning the network hyperparameters</h1>
+
+<p>In relation to the tuning of the different hyperparameters that can be configured to optimize the performance of the different models generated, different tests were carried out, including the adjustment of some layers of the pre-trained networks named in the previous section, the design of the last layers of the model, the selection of the optimizer to be used, as well as the cost function defined in each case.</p>
+
+<h2 id="configuration-of-model-layers">Configuration of model layers</h2>
+
+<p>Because they have tested both Transfer Learning and Fine Tuning on the previous models. In most cases, the first layers have been frozen, as these are the ones that usually extract more general characteristics from the images, and the last blocks of convolutional layers have been retrained. We have also added some new layers so that the architecture of the model could represent and generalise the problem to a greater extent, as a very low number of examples were available. This part of the model architecture would be related to the part of feature extraction from the images.</p>
+
+<p>On the other hand, as for the section of the dense layers, or fully connected layers that are in charge of performing the classification according to the output of the previous layers, it was mainly characterized by being formed by a layer of Global Average Poling to join the result provided by the previous layers, Dropout layers, which have the function of eliminating connections between neurons of different layers in order to achieve greater generalization, as well as dense layers with several neurons, having as a last layer a dense one with a softmax activation function to distinguish between the 14 classes of this problem. In general, in all that have been added, relu has been used as an activation function. In the next section describing how the best results have been achieved, the configuration of the network will be explained more specifically.</p>
+
+<h2 id="cost-function">Cost function</h2>
+
+<p>Mainly it has been used in all tests of the categorical cross entropy cost function (Equation 1), because it has offered good results in problems where classification of multiple classes is being treated, since it avoids slowing down the learning, so that the descent of the gradient depends only on the exit of the neuron, the entry of the neuron and the class of the badly classified example. This therefore avoids the slowing down of learning and helps with the problem of the disappearance of the gradient suffered by deep neural networks.</p>
+
+<p class="text-center">
+  <img src="/assets/img/2019-04-23-dl-corals/crossentropy.png" width="40%" title="Equation 1: Categorical Cross Entropy Loss function" />
+</p>
+
+<h2 id="optimizer-selection">Optimizer selection</h2>
+
+<p>As far as the network optimizer is concerned, tests have been carried out with different approaches, in which care has been taken at all times to ensure that the network parameters are properly adjusted to make it a good model.
+Mainly two optimizers were used with the following parameters:</p>
+
+<ul>
+  <li>Adam
+    <ul>
+      <li>lr = 0.001, 0.0001, 0.00001 and 0.000001</li>
+    </ul>
+  </li>
+  <li>GDS
+    <ul>
+      <li>lr = 0.01, 0.001</li>
+      <li>momentum = 0.9</li>
+      <li>decay = 1e-6</li>
+      <li>nesterov = True, False</li>
+    </ul>
+  </li>
+</ul>
+
+<p>As for Adam, in this case the value of the learning rate was progressively reduced because, by decreasing it, the learning is done in a more progressive way to the problem through the cost function, thus avoiding an over-adjustment of the model, as well as settling in local minimums.</p>
+
+<p>On the other hand, in relation to SGD (Stochastic Gradient Descent), a learning rate as low as the previous base rate was not defined. But it was tested by setting a momentum of 0.9 to configure the moving average of the gradients. With decay the learning rate value is updated decreasing in the way indicated in each period, which favours a faster learning at the beginning, and slows down as each period passes in order to try to generalize the model well. Finally, as far as nesterov is concerned, it is indicated whether nesterov momentum is applied for the gradient or not.</p>
+
+<p>Finally, in order to try to achieve a faster learning process in the first instance and a slower one progressively, that is, in the last periods the model is adjusted by means of the cost function so that a good generalization is achieved, a modification of the learning rate is made as each period passes.</p>
+
+<h2 id="callback">Callback</h2>
+
+<p>In the callback, an EarlyStopping has been established to monitor the value of the cost function over the validation set (20% of the original train set) so that when it stops decreasing constantly considering a value of patience, the training of the model stops. This is done to try to avoid the model over-adjustment, so that it is possible to identify at what moment the model has been trained so much that it has been adapted to a great extent to the training data and a clear over-adjustment is shown when evaluating it over the validation set. In addition to this, the restore_best_weights parameter has been established, so that the final model will be composed of those weights that have offered a lower cost value over the validation set.</p>
+
+<h2 id="treatment-of-the-class-balancing">Treatment of the class balancing</h2>
+
+<p>In this problem it was observed that there was a clear imbalance between classes and to combat this fact an attempt was made to address it by establishing weights on those classes that were considered to be minority classes, so that when the classifier assigned them to the wrong class, this would be of greater importance than when he erroneously classified any example of a majority class. Although this was done by trying to balance the weight of error of each example according to the number of instances of each class, the improvement produced in the final model was not significant to a great extent since it offered similar results to when this technique was not applied.</p>
+
+<h1 id="results">Results</h1>
+
+<p>The specific structure of different shipments made is explained below and the results obtained are evaluated.</p>
+
+<h2 id="vgg-16-1">VGG-16</h2>
+
+<p>Initially, it was tested using SGD (which gave bad results) and ADAM, generating new examples of training by means of zooms and symmetries and training all the layers or only the last ones (from the 4th block onwards). Seeing that retraining all the layers at each step did not bring improvements, he switched to training only the final layers and adding new ones.</p>
+
+<p>The first attempts to add own layers were adding a convolutional, a dropout, a flatten and 2 dense in one case (gives a similar result to the unmodified) and adding a flatten and 3 dense layers, which does slightly improve the learning, although it is still below 90%.</p>
+
+<p>Then, it was tested with an average pooling and two pairs of dropout-densa layers, with a final layer using softmax, already obtaining results above 90% (envio3.csv).</p>
+
+<p>As for the stop condition, the network’s patience remained high (it stops when it gets worse in 20 consecutive steps). By adding pre-processing, correcting the brightness in RGB and YCrCb, as well as including other restrictions for early stop in training (no loss of information in 3 cases in a row), the accuracy of the model exceeded 95% (envio4.csv).</p>
+
+<p>In the next test, we tried to lower the zoom range in exchange for being able to truncate the image in the sample generation and lowering the patience of the model when deciding to stop the training at 15 epochs in a row, keeping the rest the same. This produced only slightly lower results (envio6.csv). However, by reducing even more that patience (10 epochs) the result improved considerably, reaching 100% success in the public classification (envio7.csv).</p>
+
+<p>For the next submission, we tried to add Gaussian blur to the images in the pre-processing, before the color adjustments, which helped to reduce the overtraining that seemed to be occurring and improved the private result without making the public one worse (<strong>envio8.csv</strong>).</p>
+
+<p>For the next submission, we tried to remove the RGB correction (keeping the YCrCb) and to add a new dropout-densa pair for training, although the result got slightly worse (envio11.csv).
+In view of this result, it was decided to eliminate the dropout-densa pair added in the previous case, and to add in the pre-processing differentiated weights for the classes with more data and those with less, so that the new model would try to better incorporate the minority classes (envio12.csv). The change makes the result much worse, although the idea of weights was not discarded.</p>
+
+<p>The following 3 submissions (<strong>envio19.csv</strong>, envio17.csv and envio18.csv) add the rotation of the images for the generation of new examples, although the fundamental thing is that they change the learning blocks of the network. They remove the blocks from the 4th (inclusive) of VGG-16 and add their own nodes. Specifically, these blocks are replaced by a dropout layer, 3 convolutional, a batch normalization, a max pooling and a dropout, before returning with the average pooling, the 2 dropout-dense pairs and the softmax that had already been added for the previous networks. In the case of the 19.csv shipment, which had a wider rotation angle, the result obtained was very good (over 97% in both the public and private scores).</p>
+
+<p>By modifying the weights and the different parameters on the model of the envio19.csv submission, the most that was achieved was to equal the results, without improving them (<strong>envio19_weights_2.0_zoom_0.3_rotation_0.7.csv</strong>).</p>
+
+<h2 id="resnet-50-1">Resnet-50</h2>
+
+<p>For these networks, the pre-processing used is similar to that of the latest VGG-16 tests. Gaussian blur, RGB and YCrCb colour correction and grids are used for the correction of the illumination, the data is normalised (as usual) and, to generate new examples for learning, the data is centred with zoom and symmetries.</p>
+
+<p>In this case, the basic architecture of the network is different, consisting of many blocks with bifurcations, instead of always following the same path. As in the case of VGG-16, an average pooling, 2 dropout-densa pairs and a softmax were added at the end of the model, retraining only the layers that include moving averages and variances and the last 15 layers. The stop condition is the same as the one used in VGG-16, with a patience of 10.
+Using this structure, some good results were obtained (e.g. the .csv sending that was marked with Resnet50, with 100% accuracy in the public test and 96% in the private one), but they did not surpass the best case of VGG-16.</p>
+
+<h2 id="xception-1">Xception</h2>
+
+<p>For these networks the same pre-processing was used as for RESNET50, but adding a rotation parameter of up to 1 degree when generating new training samples.</p>
+
+<p>As before, on the base model of Xception an average pooling, 2 dropout-densa pairs and a softmax are added as transfer learning layers. Only the final layers and those including moving averages and variances are retrained, and the stop condition is similar to the case of RESNET50.</p>
+
+<p>The submission made using this structure obtained the best results of private score (&gt;99%), and although in the public case it obtained a good result, it was not perfect (&gt;95%) (<strong>envio.csv Xception_Keras_11-J</strong>).</p>
+
+<h2 id="results-of-the-best-submissions">Results of the best submissions</h2>
+
+<p>The shipments selected for final submission are those highlighted in the explanations above, which can be found (along with their scores) in the table below:</p>
+
+<table style="border-collapse:collapse;border-spacing:0;border-color:#ccc" class="tg"><tr><th style="font-family:Arial, sans-serif;font-size:14px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#efefef;text-align:left;vertical-align:top">Submission</th><th style="font-family:Arial, sans-serif;font-size:14px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#efefef;text-align:center;vertical-align:top">Private Score</th><th style="font-family:Arial, sans-serif;font-size:14px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#efefef;text-align:center;vertical-align:top">Public Score</th></tr><tr><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#fff;text-align:left;vertical-align:top">envio.csv Xception_Keras_11-J</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#fff;text-align:center;vertical-align:top">0.99038</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#fff;text-align:center;vertical-align:top">0.95238</td></tr><tr><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#fff;text-align:left;vertical-align:top">envio19.csv</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#fff;text-align:center;vertical-align:top">0.98076</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#fff;text-align:center;vertical-align:top">0.97619</td></tr><tr><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#fff;text-align:left;vertical-align:top">envio19_pesos_2.0_zoom_0.3_rotacion_0.7.csv</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#fff;text-align:center;vertical-align:top">0.98076</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#fff;text-align:center;vertical-align:top">0.97619</td></tr><tr><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#fff;text-align:left;vertical-align:top">envio8.csv</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#fff;text-align:center;vertical-align:top">0.96153</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;border-color:inherit;color:#333;background-color:#fff;text-align:center;vertical-align:top">1.00000</td></tr></table>
+
+<p></p>
+:ET

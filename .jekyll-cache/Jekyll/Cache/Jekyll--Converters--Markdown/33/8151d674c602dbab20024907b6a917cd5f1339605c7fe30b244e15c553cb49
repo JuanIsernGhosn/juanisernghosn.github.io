@@ -1,0 +1,72 @@
+I"�<p>The document presented below corresponds to the final report generated after the coral classification work of the <strong>RSMAS data set</strong>. This project requires the use of Deep Learning, in order to generate models that maximize the accuracy of the classification of other images of the same set that have not been seen by the Deep Learning model.</p>
+
+<p>The library that has been used to develop the models presented in this practice is the Keras high-level neural network API, which implements a set of functionalities that facilitate the development of neural network architectures and their correct training and adjustment. Thus, the main approach used for the development of models and that, to a large extent, is also facilitated by Keras, has been the generation of models by means of <strong>Transfer Learning and Fine Tuning</strong>.</p>
+
+<h2 id="rsmas-data-set">RSMAS data set</h2>
+
+<p>There are currently eight open reference points used for the classification of underwater corals. The RSMAS set, one of the most recent and largest RGB datasets containing corals, has been used in this competition. This dataset is composed of images of parts of corals, which mainly capture the texture of the corals rather than the overall structure of the coral in question.
+Thus, the RSMAS image set contains 766 images of size 256×256. The images were collected by divers from the University of Miami’s Rosenstiel School of Marine and Atmospheric Science. These images were taken with different cameras in different locations and have been classified into 14 classes, which are labeled with the Latin names of the coral species. Several images of the data set are shown in Figure 1. For this project, the RSMAS image set has been divided as follows:</p>
+
+<ul>
+  <li>
+    <p>A training subset, consisting of 620 images from the original set, with the following distribution by class:</p>
+
+    <ul>
+      <li>ACER: 88</li>
+      <li>SALW: 62</li>
+      <li>CNAT: 46</li>
+      <li>DANT: 51</li>
+      <li>DSTR: 20</li>
+      <li>GORG: 48</li>
+      <li>MALC: 18</li>
+      <li>MCAV: 64</li>
+      <li>MMEA: 44</li>
+      <li>MONT: 23</li>
+      <li>PALY: 26</li>
+      <li>SPO: 71</li>
+      <li>SSID: 30</li>
+      <li>TUNI: 29</li>
+    </ul>
+  </li>
+  <li>
+    <p>A test subset, consisting of the remaining 146 images from the data set. This test subset has in turn been divided into two others:</p>
+
+    <ul>
+      <li>29% of it is used for public classification during the project, so that one can observe the model’s performance and get an idea of the potential with respect to the rest of the implemented models.</li>
+      <li>The other 71% is used for the private classification, which is released once the project is over, so that it is possible to have an idea of the generalization capacity of the models generated on previously untested data.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="pre-processing-used">Pre-processing used</h1>
+
+<p>In order to facilitate the learning of our model, several pre-processing tasks have been carried out on our images. Thus, in this section we present these tasks, emphasizing their relevance, why they have been proposed and how they have been developed.</p>
+
+<h2 id="correction-of-the-luminosity-of-the-images">Correction of the luminosity of the images</h2>
+
+<p>After carrying out a first visualization of the images, we noticed that in some classes there were certain images that, due to their capture conditions, made it difficult to visualize certain details and that therefore, did not allow to extract information that could be considered completely representative of the class in question, either because of the dim light with which the image had been taken or because of the excessive brightness present in the image.</p>
+
+<p>Thus, in order to solve this problem, the intensity of the images was corrected. To do this, and at first, the colour space with which the images were loaded (originally in RGB) was changed to YCrCb, where the Y channel represents the luma or luminosity component of the image, while Cb and Cr are the chrominance components, which differ from blue and differ from red. This change of color space was done by one of the OpenCV functions and the line in question is shown below:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">img_YCrCb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2YCrCb</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The technique used to improve the contrast of our images was the equalization of the histogram. This is a transformation that aims to obtain for an image a histogram with a uniform distribution. Specifically, we made use of an algorithm called CLAHE (Contrast Limited Adaptive Histogram Equalization) and its concrete implementation of OpenCV.</p>
+
+<p>For this adaptive histogram equalization, the image is divided into small blocks (8x8 by default in OpenCV). Then, each of these blocks are equalized individually so that in a small area, the histogram would be limited to a small region. In addition, to avoid amplifying existing noise, a contrast limitation is applied, so that if in any of the cells of the histogram it is above the specified contrast limit (default 40 in OpenCV), these pixels are cut out and distributed evenly in other cells. The lines of code needed to carry out this preprocessing are shown below:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">clahe</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">createCLAHE</span><span class="p">(</span><span class="n">clipLimit</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">tileGridSize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">cl1</span> <span class="o">=</span> <span class="n">clahe</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">img_YCrCb</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">img_YCrCb</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">cl1</span>
+<span class="n">img_RGB</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img_YCrCb</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_YCrCb2RGB</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Figure 1 below shows one of the images of the training set before and after contrast correction:</p>
+
+<p class="text-center">
+  <img src="/assets/img/2019-04-23-dl-corals/hist.png" width="90%" title="Figure 1. Image before and after contrast correction" />
+</p>
+
+<p><img src="" alt="Contrast correction" /></p>
+<center></center>
+:ET
