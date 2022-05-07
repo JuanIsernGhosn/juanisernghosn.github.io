@@ -1,14 +1,19 @@
-- company: University of Granada
-  begin: April 2019
+- company: Innovaciones Tecnológicas del Sur (INNOVASUR)
+  begin: June 2021
   end: Today
+  comment: "<b>Data scientist</b>: Data scientist working as a <b>computer vision engineer<b>. Managing a data hyperconnection platform for Smart-Cities. Technical leader and project manager of several R+D+i projects in the field of Smart Cities. Developing machine learning models for image/video pattern retrieval on high performance embedded systems. Also, developing workflows for automatic discovery of potential knowledge in Smart-Cities data warehouses."
+
+- company: University of Granada (UGR)
+  begin: April 2019
+  end: May 2021
   comment: "<b>Data scientist</b>: Researcher in the Department of Architecture and Computer Technology for the project &quotFrom the cloud to the edge - smart Integration and OPtimisation Technologies for highly efficient Image and VIdeo processing Systems&quot (FITOPTIVIS)"
 
-- company: University of Las Palmas de Gran Canaria
+- company: University of Las Palmas de Gran Canaria (ULPGC)
   begin: June 2018
   end: August 2018
   comment: "<b>Data scientist</b>: Collaboration grant in project &quotStrategic Plan 2025 of the Municipality of La Aldea de San Nicolás: Situation diagnosis&quot. Conducted text mining analyses of the topics treated in sustainability reports. Use of different sets of natural language processing (NLP) tools, resulting a new methodology useful for future similar analyses."
 
-- company: Loquat Solutions
+- company: Loquat Solutions S.L.
   begin: September 2017
   end: February 2018
-  comment: "<b>Software engineer</b>: Participated in installing scalable information system for the regional government of Canary Islands. Design of modules for accounting and stock management present in commercial software. Assisted in product research and competition analysis: identifying and defining markets, product market and geographic market."
+  comment: "<b>Software engineer</b>: Participated in installing scalable information system for the regional government of Canary Islands. Design of modules for accounting and stock management present in commercial software. Assisted in product research and competitors analysis: identifying and defining markets, product market and geographic market."

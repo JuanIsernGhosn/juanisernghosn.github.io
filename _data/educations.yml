@@ -1,4 +1,14 @@
 - centre: University of Granada
+  study: PhD. in Information and communications technology (ICT)
+  begin: September 2020
+  end: Today
+  comments:
+    - name: Line of research
+      text: Neural Engineering and Bioinspired Integrated Systems
+    - name: Thesis
+      text: "&quotAdvanced monitoring techniques for distributed environments using high performance vision processing architectures&quot"
+
+- centre: University of Granada
   study: Master Degree in Data Science
   begin: October 2018
   end: September 2019
