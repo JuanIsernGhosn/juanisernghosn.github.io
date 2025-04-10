@@ -1,0 +1,30 @@
+<div class="index-module" data-aos="fade-bottom">
+
+  <h4><u>Publications</u></h4>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Title</th>
+        <th>Publisher</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      {% for publication in site.data.research_work %}
+        <tr>
+          <td>{{ publication.date }}</td>
+          <td>
+            <a href="{{ publication.url }}" target="_blank">{{ publication.title }}</a>
+            {% if publication.arxiv %}
+              <br><small><a href="{{ publication.arxiv }}" target="_blank">[arXiv]</a></small>
+            {% endif %}
+          </td>
+          <td>{{ publication.publisher }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>

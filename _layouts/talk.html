@@ -1,0 +1,35 @@
+---
+layout: main_structure
+---
+
+<div class="meta"> 
+	<p><small><span> <i class="fa fa-calendar" aria-hidden="true"></i> {{ page.date | date: "%-d %b %y" }}&nbsp&nbsp&nbsp;</span> <span> <i class="fa fa-clock-o" aria-hidden="true"></i> {{ page.read_time }} mins read. </span> </small></p>
+</div>
+
+<div class="project-image" style="background-image: url('{{ page.image }}')"></div>
+<p class="text-center"><i>{{ page.image_description }}</i></p>
+
+{% if page.repo %}
+
+<div class="text-center">
+	<a href="{{ page.repo }}">
+	<button type="button" class="btn btn-git btn-dark"><i class="fab fa-github pr-1" ></i>Code on Github</button>
+	</a>
+</div>
+
+<p></p>
+
+{% endif %}
+
+
+{{ content }}
+
+{% if page.repo %}
+
+<div class="text-center">
+	<a href="{{ page.repo }}">
+	<button type="button" class="btn btn-git btn-dark"><i class="fab fa-github pr-1" ></i>Code on Github</button>
+	</a>
+</div>
+
+{% endif %}

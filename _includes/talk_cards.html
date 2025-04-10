@@ -1,0 +1,25 @@
+<p>Explore some of the talks and conferences I've participated in:</p>
+  <div class="card-columns row">
+
+    {% for talk in site.categories.talks %}
+
+    <div class="col-12 col-md-6 col-xl-4 card-column">
+
+      <div class="card" data-aos="fade-up">
+        <a href="{{ talk.url }}">
+        <img class="card-img-top" src="{{ talk.image }}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{ talk.title }}</h5>
+          <p class="card-text">
+            {{ talk.description }}
+          </p>
+          <p class="card-text"><small class="text-muted"><i class="far fa-clock"></i>{{ talk.read_time }} mins. read<i class="fas fa-calendar-alt"></i>{{ talk.date | date: "%-d %b %y" }}</small></p>
+        </div>
+        </a>
+      </div>
+
+    </div>
+
+      {% endfor %}
+
+    </div>
