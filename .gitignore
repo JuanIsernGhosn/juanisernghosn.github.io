@@ -7,6 +7,10 @@ _site
 ### NPM ###
 /node_modules/
 
+# Ruby
+.bundle
+vendor/bundle
+vendor/cache
 
 ### Atom ###
 .ftpconfig
