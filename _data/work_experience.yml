@@ -1,6 +1,11 @@
 - company: Innovaciones Tecnológicas del Sur (INNOVASUR)
+  begin: February 2023
+  end: Present
+  comment: "<b>IA Manager</b>: Leading the development of Smart Cities projects with a strong focus on artificial intelligence applied to image processing, computer vision, and automatic knowledge discovery from urban data. Managing a data hyperconnection platform for Smart-Cities. Technical leader and project manager of several R+D+i projects in the field of Smart Cities. Developing machine learning models for image/video pattern retrieval on high performance embedded systems. Also, developing workflows for automatic discovery of potential knowledge in Smart-Cities data warehouses."
+
+- company: Innovaciones Tecnológicas del Sur (INNOVASUR)
   begin: June 2021
-  end: Today
+  end: January 2023
   comment: "<b>Data scientist</b>: Data scientist working as a <b>computer vision engineer</b>. Managing a data hyperconnection platform for Smart-Cities. Technical leader and project manager of several R+D+i projects in the field of Smart Cities. Developing machine learning models for image/video pattern retrieval on high performance embedded systems. Also, developing workflows for automatic discovery of potential knowledge in Smart-Cities data warehouses."
 
 - company: University of Granada (UGR)
