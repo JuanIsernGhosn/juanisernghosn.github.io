@@ -22,13 +22,14 @@ title: Juan Isern
 tab_text: The Juan Isern's official portfolio
 email: juan.isern95@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Data scientist.
+  IA Manager at INNOVASUR.
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://jisern.rocks" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: juan_isern
 github_username: JuanIsernGhosn
 instagram_username: juaniserng
 linkedin_username: juan-isern
+email_address: juan.isern95@gmail.com
 
 
 # Build settings
@@ -36,6 +37,13 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+
+# Collection settings
+collections:
+  pages:
+    output: true
+    permalink: /:path/
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.
