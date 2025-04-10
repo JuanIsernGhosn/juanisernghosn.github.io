@@ -1,14 +1,14 @@
 <div class="index-module" data-aos="fade-right">
-        
+
         <h4><u>Work experience</u></h4>
 
         These are some places I have been working at:
 
         <div class="row">
-            <div class="col-lg-10 mx-auto">  
+            <div class="col-lg-10 mx-auto"> 
                 <ul class="timeline">
 
-                    {% for experience in site.data.work_experiences %}
+                    {% for experience in site.data.work_experience %}
                     <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
                         <div class="timeline-arrow"></div>
                         <h2 class="h5 mb-0">{{ experience.company }}</h2><span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>{{ experience.begin }} - {{ experience.end }}</span>
