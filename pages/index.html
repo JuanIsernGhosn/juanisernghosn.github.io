@@ -1,21 +1,457 @@
 ---
-title: I'm Juan Isern
-layout: main_structure
-description: Personal webpage
+layout: default
+title: AI Director & MLOps Engineer
+description: Juan Isern - AI Director & MLOps Engineer Portfolio
 permalink: /
 ---
 
-{% include introduction.html %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="hero-container">
+        <div class="hero-content">
+            <span class="hero-label">Welcome</span>
+            <h1>
+                Hi, I'm <span class="hero-highlight">Juan Isern</span><br>
+                AI Director & MLOps Engineer
+            </h1>
+            <p class="hero-description">
+                Transforming businesses through artificial intelligence and machine learning.
+                Specialized in MLOps, deep learning, and building production-ready AI systems at scale.
+            </p>
+            <div class="hero-actions">
+                <a href="/contact" class="btn btn-secondary btn-lg">
+                    <span>Get in Touch</span>
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
 
-{% include work_timeline.html %}
+        <div class="hero-image">
+            <div class="hero-img-wrapper">
+                <img src="/assets/img/profile_picture.jpg" alt="Juan Isern">
+            </div>
+            <div class="hero-badge">
+                <div class="badge-icon">🚀</div>
+                <div class="badge-text">
+                    AI Manager
+                    <span>INNOVASUR</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-{% include expertise.html %}
+<!-- Stats Section -->
+<section class="section" style="background: var(--color-bg-secondary);">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">10+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">50+</div>
+                <div class="stat-label">Projects Delivered</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">15+</div>
+                <div class="stat-label">Technologies</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Publications</div>
+            </div>
+        </div>
+    </div>
+</section>
 
-{% include education.html %}
+<!-- About Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">About Me</span>
+            <h2 class="section-title">Driving AI Innovation</h2>
+            <p class="section-description">
+                Passionate about leveraging artificial intelligence to solve complex business challenges
+            </p>
+        </div>
 
-{% include research_work_table.html %}
+        <div style="max-width: 800px; margin: 0 auto;">
+            {% for item in site.data.introduction %}
+            <p>{{ item.texto }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
-{% include certifications_table.html %}
+<!-- Experience Section -->
+<section class="section" style="background: var(--color-bg-secondary);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Experience</span>
+            <h2 class="section-title">Professional Journey</h2>
+        </div>
 
-{% include courses_table.html %}
+        <div class="timeline">
+            {% assign grouped_experiences = site.data.work_experience | group_by: "company" %}
+            {% for group in grouped_experiences %}
+            <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div>
+                            <h3 class="timeline-title">{{ group.name }}</h3>
+                            {% if group.items.size > 1 %}
+                                <div class="timeline-subtitle">Multiple positions</div>
+                            {% endif %}
+                        </div>
+                        <div class="timeline-date">
+                            {% assign first_exp = group.items | first %}
+                            {% assign last_exp = group.items | last %}
+                            {{ last_exp.begin }} - {{ first_exp.end }}
+                        </div>
+                    </div>
 
+                    {% for experience in group.items %}
+                    <div style="{% if forloop.first == false %}margin-top: var(--space-6); padding-top: var(--space-6); border-top: 1px dashed var(--color-border);{% endif %}">
+                        {% if group.items.size > 1 %}
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-3);">
+                            <div style="font-weight: var(--font-semibold); color: var(--color-primary); font-size: var(--text-base);">
+                                Position #{{ forloop.index }}
+                            </div>
+                            <div style="font-size: var(--text-sm); color: var(--color-text-tertiary);">
+                                {{ experience.begin }} - {{ experience.end }}
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="timeline-description">{{ experience.comment }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Expertise Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Skills</span>
+            <h2 class="section-title">Technical Expertise</h2>
+            <p class="section-description">
+                Cutting-edge technologies and frameworks I work with
+            </p>
+        </div>
+
+        <div class="skills-container">
+            {% for skill in site.data.expertise %}
+            <div class="skill-tag" style="border-color: rgb({{ skill.rgb }});" data-aos="zoom-in" data-aos-delay="{{ forloop.index0 | times: 50 }}">
+                <i class="{{ skill.icon }}" style="color: rgb({{ skill.rgb }});"></i>
+                <span>{{ skill.name }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Education Section -->
+<section class="section" style="background: var(--color-bg-secondary);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Education</span>
+            <h2 class="section-title">Academic Background</h2>
+        </div>
+
+        <div class="timeline">
+            {% for edu in site.data.education %}
+            <div class="timeline-item" data-aos="fade-left">
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div>
+                            <h3 class="timeline-title">{{ edu.study }}</h3>
+                            <div class="timeline-subtitle">{{ edu.centre }}</div>
+                        </div>
+                        <div class="timeline-date">{{ edu.begin }} - {{ edu.end }}</div>
+                    </div>
+                    {% if edu.comments %}
+                    <div style="margin-top: var(--space-4);">
+                        {% for comment in edu.comments %}
+                        <div style="margin-bottom: var(--space-2);">
+                            <strong style="color: var(--color-text-primary);">{{ comment.name }}:</strong>
+                            <span style="color: var(--color-text-secondary);">{{ comment.text }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Publications Section -->
+<section class="section" style="background: var(--color-bg-secondary);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Research</span>
+            <h2 class="section-title">Publications</h2>
+            <p class="section-description">
+                Peer-reviewed research contributions in AI and computer vision
+            </p>
+        </div>
+
+        <div style="max-width: 900px; margin: 0 auto;">
+            {% for publication in site.data.research_work %}
+            <article class="card" style="margin-bottom: var(--space-6);" data-aos="fade-up" data-aos-delay="{{ forloop.index0 | times: 100 }}">
+                <div class="card-content">
+                    <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-3); color: var(--color-text-primary);">
+                        {{ publication.title }}
+                    </h3>
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-3); font-size: var(--text-base);">
+                        {{ publication.authors }}
+                    </p>
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-4);">
+                        <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+                            <span style="color: var(--color-primary); font-weight: var(--font-medium); font-size: var(--text-sm);">
+                                {{ publication.publisher }}
+                            </span>
+                            <span style="color: var(--color-text-tertiary); font-size: var(--text-sm);">
+                                <i class="far fa-calendar"></i>
+                                {{ publication.date }}
+                            </span>
+                        </div>
+                        <a href="{{ publication.url }}" target="_blank" rel="noopener" class="btn btn-ghost">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>View Publication</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Certifications Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Credentials</span>
+            <h2 class="section-title">Certifications</h2>
+            <p class="section-description">
+                Professional certifications and qualifications
+            </p>
+        </div>
+
+        <div style="max-width: 800px; margin: 0 auto; display: grid; gap: var(--space-6);">
+            {% for cert in site.data.certifications %}
+            <div class="card" style="padding: var(--space-8);" data-aos="fade-up">
+                <div style="display: flex; align-items: start; gap: var(--space-6);">
+                    <div style="width: 60px; height: 60px; border-radius: var(--radius-lg); background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i class="fas fa-certificate" style="font-size: var(--text-2xl); color: white;"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-2); color: var(--color-text-primary);">
+                            {{ cert.name }}
+                        </h3>
+                        <p style="color: var(--color-primary); font-weight: var(--font-medium); margin-bottom: var(--space-2);">
+                            {{ cert.institution }}
+                        </p>
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3);">
+                            <span style="color: var(--color-text-tertiary); font-size: var(--text-sm);">
+                                <i class="far fa-calendar"></i>
+                                {{ cert.date }}
+                            </span>
+                            <div style="display: flex; gap: var(--space-2); flex-wrap: wrap;">
+                                {% if cert.file %}
+                                <a href="{{ cert.file }}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <span>View Certificate</span>
+                                </a>
+                                {% endif %}
+                                {% if cert.url %}
+                                <a href="{{ cert.url }}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Verify Online</span>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Recent Talks Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Speaking</span>
+            <h2 class="section-title">Recent Talks</h2>
+            <p class="section-description">
+                Sharing knowledge and insights on AI and technology
+            </p>
+        </div>
+
+        <div class="card-grid">
+            {% for post in site.categories.talks limit:3 %}
+            <article class="card" data-aos="fade-up" data-aos-delay="{{ forloop.index0 | times: 100 }}">
+                {% if post.image %}
+                <div class="card-image">
+                    <img src="{{ post.image }}" alt="{{ post.title }}">
+                    <span class="card-badge">{{ post.event | default: "Talk" }}</span>
+                </div>
+                {% endif %}
+
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span>
+                            <i class="far fa-calendar"></i>
+                            {{ post.date | date: "%b %d, %Y" }}
+                        </span>
+                        {% if post.location %}
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{ post.location }}
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    <h3 class="card-title">
+                        <a href="{{ post.url }}">{{ post.title }}</a>
+                    </h3>
+
+                    <p class="card-description">
+                        {{ post.description | default: post.excerpt | strip_html | truncate: 120 }}
+                    </p>
+
+                    <div class="card-footer">
+                        <a href="{{ post.url }}" class="card-link">
+                            View Details
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        <div style="text-align: center; margin-top: var(--space-12);">
+            <a href="/talks" class="btn btn-primary btn-lg">
+                View All Talks
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section" style="background: var(--gradient-primary); color: white; text-align: center;">
+    <div class="container">
+        <h2 style="color: white; font-size: var(--text-5xl); margin-bottom: var(--space-6);">
+            Let's Build Something Amazing Together
+        </h2>
+        <p style="font-size: var(--text-xl); color: rgba(255,255,255,0.9); margin-bottom: var(--space-8); max-width: 600px; margin-left: auto; margin-right: auto;">
+            Looking for an AI expert to transform your business? Let's talk about your next project.
+        </p>
+        <div class="flex justify-center gap-4" style="display: flex; justify-content: center; gap: var(--space-4); flex-wrap: wrap;">
+            <a href="/contact" class="btn btn-lg" style="background: white; color: var(--color-primary);">
+                <i class="fas fa-envelope"></i>
+                Get in Touch
+            </a>
+            <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" class="btn btn-lg" style="background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(10px);">
+                <i class="fab fa-linkedin"></i>
+                Connect on LinkedIn
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Courses Section (Compact) -->
+<section class="section" style="background: var(--color-bg-secondary);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Learning</span>
+            <h2 class="section-title">Professional Courses</h2>
+            <p class="section-description">
+                Continuous learning and professional development
+            </p>
+        </div>
+
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div id="courses-container">
+                {% for course in site.data.courses %}
+                <div class="course-item {% if forloop.index > 3 %}course-hidden{% endif %}" style="display: {% if forloop.index <= 3 %}flex{% else %}none{% endif %}; align-items: start; gap: var(--space-4); padding: var(--space-4); border-radius: var(--radius-lg); background: var(--color-bg-primary); margin-bottom: var(--space-3); transition: all var(--transition-base);" data-aos="fade-up" data-aos-delay="{{ forloop.index0 | times: 50 | modulo: 300 }}">
+                    <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--gradient-secondary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i class="fas fa-graduation-cap" style="font-size: var(--text-base); color: white;"></i>
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                        <h3 style="font-size: var(--text-base); font-weight: var(--font-semibold); margin-bottom: var(--space-1); color: var(--color-text-primary); line-height: 1.4;">
+                            {{ course.name }}
+                        </h3>
+                        <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-1);">
+                            {{ course.institution }}
+                        </p>
+                        <div style="display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap;">
+                            <span style="color: var(--color-text-tertiary); font-size: var(--text-xs);">
+                                <i class="far fa-calendar"></i>
+                                {{ course.date }}
+                            </span>
+                            {% if course.url %}
+                            <a href="{{ course.url }}" target="_blank" rel="noopener" style="color: var(--color-primary); font-size: var(--text-xs); font-weight: var(--font-medium); display: flex; align-items: center; gap: var(--space-1); text-decoration: none;">
+                                <span>Certificate</span>
+                                <i class="fas fa-external-link-alt" style="font-size: 0.65rem;"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% if site.data.courses.size > 3 %}
+            <div style="text-align: center; margin-top: var(--space-6);">
+                <button id="toggle-courses-btn" class="btn btn-ghost" onclick="toggleCourses()">
+                    <span id="toggle-courses-text">Show More Courses</span>
+                    <i id="toggle-courses-icon" class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+function toggleCourses() {
+    const hiddenCourses = document.querySelectorAll('.course-hidden');
+    const btn = document.getElementById('toggle-courses-btn');
+    const text = document.getElementById('toggle-courses-text');
+    const icon = document.getElementById('toggle-courses-icon');
+    const isExpanded = hiddenCourses[0].style.display === 'flex';
+
+    hiddenCourses.forEach(course => {
+        course.style.display = isExpanded ? 'none' : 'flex';
+    });
+
+    text.textContent = isExpanded ? 'Show More Courses' : 'Show Less';
+    icon.classList.toggle('fa-chevron-down');
+    icon.classList.toggle('fa-chevron-up');
+}
+
+// Mobile: Show only first course initially
+if (window.innerWidth <= 768) {
+    const allCourses = document.querySelectorAll('.course-item');
+    allCourses.forEach((course, index) => {
+        if (index > 0) {
+            course.style.display = 'none';
+            course.classList.add('course-hidden');
+        }
+    });
+}
+</script>

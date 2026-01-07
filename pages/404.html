@@ -1,26 +1,51 @@
 ---
-title: Page not found
+layout: default
+title: Page Not Found
+description: 404 - Page Not Found
 permalink: /404
-layout: main_structure
 ---
 
-<style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
+<!-- 404 Section -->
+<section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="container" style="text-align: center; max-width: 800px;">
+        <div style="margin-bottom: var(--space-8);">
+            <h1 style="font-size: 10rem; font-weight: var(--font-extrabold); background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; margin-bottom: var(--space-6);">
+                404
+            </h1>
+            <h2 style="font-size: var(--text-4xl); margin-bottom: var(--space-4); color: var(--color-text-primary);">
+                Page Not Found
+            </h2>
+            <p style="font-size: var(--text-xl); color: var(--color-text-secondary); margin-bottom: var(--space-8); max-width: 600px; margin-left: auto; margin-right: auto;">
+                Sorry, the page you're looking for doesn't exist or has been moved.
+            </p>
+        </div>
 
-<div class="container">
-  <h1>404</h1>
+        <div class="hero-actions" style="justify-content: center;">
+            <a href="/" class="btn btn-primary btn-lg">
+                <i class="fas fa-home"></i>
+                <span>Go Home</span>
+            </a>
+            <a href="/contact" class="btn btn-secondary btn-lg">
+                <i class="fas fa-envelope"></i>
+                <span>Contact Me</span>
+            </a>
+        </div>
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+        <!-- Quick Links -->
+        <div style="margin-top: var(--space-16); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); max-width: 600px; margin-left: auto; margin-right: auto;">
+            <a href="/projects" class="card" style="padding: var(--space-6); text-align: center; text-decoration: none;">
+                <i class="fas fa-folder-open" style="font-size: var(--text-4xl); color: var(--color-primary); margin-bottom: var(--space-3);"></i>
+                <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Projects</div>
+            </a>
+            <a href="/talks" class="card" style="padding: var(--space-6); text-align: center; text-decoration: none;">
+                <i class="fas fa-microphone-alt" style="font-size: var(--text-4xl); color: var(--color-secondary); margin-bottom: var(--space-3);"></i>
+                <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Talks</div>
+            </a>
+            <a href="/contact" class="card" style="padding: var(--space-6); text-align: center; text-decoration: none;">
+                <i class="fas fa-envelope" style="font-size: var(--text-4xl); color: var(--color-accent); margin-bottom: var(--space-3);"></i>
+                <div style="font-weight: var(--font-semibold); color: var(--color-text-primary);">Contact</div>
+            </a>
+        </div>
+    </div>
+</section>

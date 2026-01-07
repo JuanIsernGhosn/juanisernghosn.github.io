@@ -1,24 +1,29 @@
 - company: Innovaciones Tecnológicas del Sur (INNOVASUR)
-  begin: February 2023
+  begin: January 2024
   end: Present
-  comment: "<b>IA Manager</b>: Leading the development of Smart Cities projects with a strong focus on artificial intelligence applied to image processing, computer vision, and automatic knowledge discovery from urban data. Managing a data hyperconnection platform for Smart-Cities. Technical leader and project manager of several R+D+i projects in the field of Smart Cities. Developing machine learning models for image/video pattern retrieval on high performance embedded systems. Also, developing workflows for automatic discovery of potential knowledge in Smart-Cities data warehouses."
+  comment: "<b>AI Director</b>: Leading the AI Department with technical leadership, AI lifecycle governance, and strategic definition of advanced AI solutions. Directing Machine Learning and Computer Vision projects for Smart Cities and critical environments. Defining global AI system architecture and production deployment. Implementing MLOps practices at organizational level, ensuring scalability, traceability, and legal compliance. Developing agentic AI solutions, information retrieval systems, and conversational assistants for knowledge exploitation. Designing and maintaining domain ontologies across different sectors. Developing graph databases and semantic systems for knowledge representation and querying. Supervising data and model audits, and validation of compliance with current legislation. Technical liaison with clients, public administrations, universities, and technology partners. Leading multidisciplinary teams (ML, computer vision, Big Data, MLOps)."
 
 - company: Innovaciones Tecnológicas del Sur (INNOVASUR)
-  begin: June 2021
-  end: January 2023
-  comment: "<b>Data scientist</b>: Data scientist working as a <b>computer vision engineer</b>. Managing a data hyperconnection platform for Smart-Cities. Technical leader and project manager of several R+D+i projects in the field of Smart Cities. Developing machine learning models for image/video pattern retrieval on high performance embedded systems. Also, developing workflows for automatic discovery of potential knowledge in Smart-Cities data warehouses."
+  begin: July 2023
+  end: Present
+  comment: "<b>MLOps Engineer</b>: Managing the complete lifecycle of AI systems, from training to production operation, ensuring traceability, reproducibility, and regulatory compliance. Designing and implementing CI/CD pipelines for AI models, including training, validation, deployment, and monitoring. Managing complete model lifecycle (data, versions, metrics, artifacts, and events). Orchestrating AI systems in cloud, on-premise, and edge environments. Defining and implementing data and model governance procedures. Auditing datasets and models, bias assessment, and data quality control. Adapting AI systems to regulatory requirements (European AI Act, ENS, applicable ISO/IEC standards). Drafting AI norms and procedures: management, orchestration, and deployment of general AI systems according to standards. Preparing technical evidence for internal and external audits."
+
+- company: Innovaciones Tecnológicas del Sur (INNOVASUR)
+  begin: May 2021
+  end: June 2023
+  comment: "<b>Machine Learning Engineer</b>: Specialist in designing, developing, and optimizing machine learning models, with main focus on computer vision applied to urban and industrial environments. Developing computer vision models for detection, classification, and behavior analysis in Smart City scenarios. Optimizing models for low-performance architectures through techniques such as pruning, quantization, distillation, and pipeline reengineering. Adapting models to specific hardware, including embedded devices, dedicated accelerators, and FPGAs. Integrating models into high-performance infrastructures (HPC) and hybrid edge-cloud environments. Designing real-time inference pipelines for distributed systems. Validating performance metrics, latency, and energy efficiency in real environments."
 
 - company: University of Granada (UGR)
   begin: April 2019
   end: May 2021
-  comment: "<b>Data scientist</b>: Researcher in the Department of Architecture and Computer Technology for the project &quotFrom the cloud to the edge - smart Integration and OPtimisation Technologies for highly efficient Image and VIdeo processing Systems&quot (FITOPTIVIS)"
+  comment: "<b>AI Research Scientist</b>: Researcher in the Department of Architecture and Computer Technology for the project 'From the cloud to the edge - smart IntegraTion and OPtimisation Technologies for highly efficient Image and VIdeo processing Systems' (FITOPTIVIS). Computer vision tasks for industrial supervision and smart video surveillance. Integration with industrial power grid systems."
 
 - company: University of Las Palmas de Gran Canaria (ULPGC)
-  begin: June 2018
+  begin: July 2018
   end: August 2018
-  comment: "<b>Data scientist</b>: Collaboration grant in project &quotStrategic Plan 2025 of the Municipality of La Aldea de San Nicolás: Situation diagnosis&quot. Conducted text mining analyses of the topics treated in sustainability reports. Use of different sets of natural language processing (NLP) tools, resulting a new methodology useful for future similar analyses."
+  comment: "<b>Research Assistant</b>: Collaboration grant in project 'Strategic Plan 2025 of the Municipality of La Aldea de San Nicolás: Situation diagnosis'. Conducted text mining analyses of the topics treated in sustainability reports. Use of different sets of natural language processing (NLP) tools, resulting in a new methodology useful for future similar analyses."
 
 - company: Loquat Solutions S.L.
   begin: September 2017
   end: February 2018
-  comment: "<b>Software engineer</b>: Participated in installing scalable information system for the regional government of Canary Islands. Design of modules for accounting and stock management present in commercial software. Assisted in product research and competitors analysis: identifying and defining markets, product market and geographic market."
+  comment: "<b>Software Developer</b>: Participated in installing scalable information system for the regional government of Canary Islands. Design of modules for accounting and stock management present in commercial software. Assisted in product research and competitors analysis: identifying and defining markets, product market and geographic market."

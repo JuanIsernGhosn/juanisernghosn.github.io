@@ -1,77 +1,242 @@
-- name: Statistics
-  color: (137, 192, 121)
-  icon: far fa-chart-bar
-
-- name: Machine Learning
-  color: (25, 51, 73)
-  icon: 
-
-- name: NLP
-  color: (214, 154, 155)
-  icon: 
-
-- name: Python
-  color: (255, 206, 57)
-  icon: fab fa-python
-
-- name: Deep Learning
-  color: (43, 66, 223)
+# AI Director Skills
+- name: AI Management
+  rgb: 99, 102, 241
   icon: fas fa-brain
 
-- name: Keras
-  color: (191, 39, 26)
-  icon:
+- name: Agentic AI Systems
+  rgb: 139, 92, 246
+  icon: fas fa-robot
 
-- name: Scikit-Learn
-  color: (230, 153, 76)
-  icon: 
+- name: Smart Cities
+  rgb: 6, 182, 212
+  icon: fas fa-city
 
-- name: R
-  color: (48, 97, 172)
-  icon: fab fa-r-project
+- name: Knowledge Graphs
+  rgb: 99, 102, 241
+  icon: fas fa-project-diagram
 
-- name: Ggplot
-  color: (59, 59, 59)
-  icon:
+- name: Generative AI
+  rgb: 139, 92, 246
+  icon: fas fa-magic
 
-- name: Caret
-  color: (216, 126, 66)
-  icon: 
+- name: RAG Systems
+  rgb: 6, 182, 212
+  icon: fas fa-book-reader
 
-- name: Dplyr
-  color: (219, 132, 57)
-  icon: 
-
-- name: OOP
-  color: (0,0,0)
-  icon: 
-
-- name: Java
-  color: (216, 56, 51)
-  icon: fab fa-java
-
-- name: Kotlin
-  color: (232,142,61)
-  icon: 
-
-- name: SQL
-  color: (222,48,33)
+- name: Cypher
+  rgb: 99, 102, 241
   icon: fas fa-database
 
-- name: Financial accounting
-  color: (137, 192, 121)
-  icon: fas fa-file-invoice-dollar
+- name: Intelligent Agents
+  rgb: 139, 92, 246
+  icon: fas fa-user-robot
 
-- name: Cost accounting
-  color: (73, 66, 223)
-  icon: fas fa-search-dollar
+# MLOps Skills
+- name: MLOps
+  rgb: 34, 197, 94
+  icon: fas fa-cogs
 
-- name: Business strategy
-  color: (25, 51, 73)
+- name: CI/CD
+  rgb: 59, 130, 246
+  icon: fas fa-sync-alt
+
+- name: Data Governance
+  rgb: 168, 85, 247
+  icon: fas fa-shield-alt
+
+- name: AI Compliance
+  rgb: 34, 197, 94
+  icon: fas fa-balance-scale
+
+- name: Model Monitoring
+  rgb: 59, 130, 246
+  icon: fas fa-chart-line
+
+- name: ISO Standards
+  rgb: 168, 85, 247
+  icon: fas fa-certificate
+
+- name: AI Auditing
+  rgb: 34, 197, 94
+  icon: fas fa-search
+
+- name: ISO 42001
+  rgb: 59, 130, 246
+  icon: fas fa-award
+
+- name: GitOps
+  rgb: 168, 85, 247
+  icon: fab fa-git-alt
+
+- name: MLflow
+  rgb: 34, 197, 94
+  icon: fas fa-stream
+
+- name: DVC
+  rgb: 59, 130, 246
+  icon: fas fa-code-branch
+
+- name: Kubernetes
+  rgb: 168, 85, 247
+  icon: fas fa-dharmachakra
+
+- name: Cloud Computing
+  rgb: 34, 197, 94
+  icon: fas fa-cloud
+
+- name: GitLab CI
+  rgb: 59, 130, 246
+  icon: fab fa-gitlab
+
+- name: Docker
+  rgb: 168, 85, 247
+  icon: fab fa-docker
+
+# Machine Learning Skills
+- name: Machine Learning
+  rgb: 251, 146, 60
+  icon: fas fa-project-diagram
+
+- name: Deep Learning
+  rgb: 239, 68, 68
+  icon: fas fa-brain
+
+- name: Computer Vision
+  rgb: 251, 146, 60
+  icon: fas fa-eye
+
+- name: Model Optimization
+  rgb: 239, 68, 68
+  icon: fas fa-tachometer-alt
+
+- name: Edge AI
+  rgb: 251, 146, 60
+  icon: fas fa-microchip
+
+- name: NVIDIA Jetson
+  rgb: 239, 68, 68
+  icon: fas fa-chip
+
+- name: IoT
+  rgb: 251, 146, 60
+  icon: fas fa-network-wired
+
+- name: Python
+  rgb: 255, 206, 57
+  icon: fab fa-python
+
+- name: TensorFlow
+  rgb: 239, 68, 68
+  icon: fas fa-cube
+
+- name: PyTorch
+  rgb: 239, 68, 68
+  icon: fas fa-fire
+
+- name: OpenCV
+  rgb: 251, 146, 60
+  icon: fas fa-camera
+
+- name: ONNX
+  rgb: 239, 68, 68
+  icon: fas fa-exchange-alt
+
+- name: CUDA
+  rgb: 34, 197, 94
+  icon: fab fa-nvidia
+
+- name: TensorRT
+  rgb: 34, 197, 94
+  icon: fas fa-rocket
+
+- name: NVIDIA TAO
+  rgb: 34, 197, 94
+  icon: fas fa-tools
+
+- name: DeepStream
+  rgb: 34, 197, 94
+  icon: fas fa-video
+
+# Data Science & Analytics
+- name: Statistics
+  rgb: 137, 192, 121
+  icon: fas fa-chart-bar
+
+- name: NLP
+  rgb: 214, 154, 155
+  icon: fas fa-language
+
+- name: Data Mining
+  rgb: 59, 130, 246
+  icon: fas fa-gem
+
+- name: Data Visualization
+  rgb: 168, 85, 247
+  icon: fas fa-chart-pie
+
+- name: Text Mining
+  rgb: 214, 154, 155
+  icon: fas fa-file-alt
+
+- name: Anomaly Detection
+  rgb: 239, 68, 68
+  icon: fas fa-exclamation-triangle
+
+- name: Business Intelligence
+  rgb: 59, 130, 246
+  icon: fas fa-lightbulb
+
+# Databases
+- name: SQL
+  rgb: 222, 48, 33
+  icon: fas fa-database
+
+- name: MongoDB
+  rgb: 34, 197, 94
+  icon: fas fa-leaf
+
+- name: InfluxDB
+  rgb: 59, 130, 246
+  icon: fas fa-clock
+
+- name: Elasticsearch
+  rgb: 251, 146, 60
+  icon: fas fa-search
+
+# Programming & Software Engineering
+- name: Java
+  rgb: 216, 56, 51
+  icon: fab fa-java
+
+- name: R
+  rgb: 48, 97, 172
+  icon: fab fa-r-project
+
+- name: Software Engineering
+  rgb: 99, 102, 241
+  icon: fas fa-laptop-code
+
+- name: Agile Methodologies
+  rgb: 34, 197, 94
+  icon: fas fa-sync
+
+- name: Project Management
+  rgb: 59, 130, 246
+  icon: fas fa-tasks
+
+# Business Skills
+- name: Business Strategy
+  rgb: 25, 51, 73
   icon: fas fa-chess
 
+- name: Financial Accounting
+  rgb: 137, 192, 121
+  icon: fas fa-file-invoice-dollar
 
+- name: Cost Accounting
+  rgb: 73, 66, 223
+  icon: fas fa-search-dollar
 
-
-
-
+- name: ERP Systems
+  rgb: 59, 130, 246
+  icon: fas fa-building

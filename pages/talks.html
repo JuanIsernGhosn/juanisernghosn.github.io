@@ -1,7 +1,80 @@
 ---
-title: Talks
-layout: main_structure
+layout: default
+title: Talks & Presentations
+description: Speaking Engagements and Presentations
 permalink: /talks/
 ---
 
-{% include talk_cards.html %}
+<!-- Hero Section -->
+<section class="section" style="background: var(--color-bg-secondary); padding-top: var(--space-24); padding-bottom: var(--space-16);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Speaking</span>
+            <h1 class="section-title" style="font-size: var(--text-6xl);">Talks & Presentations</h1>
+            <p class="section-description" style="font-size: var(--text-xl); max-width: 700px;">
+                Sharing knowledge and insights on AI, machine learning, and technology at conferences and events
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Talks Grid -->
+<section class="section">
+    <div class="container">
+        <div class="card-grid">
+            {% for post in site.categories.talks %}
+            <article class="card" data-aos="fade-up" data-aos-delay="{{ forloop.index0 | times: 50 | modulo: 300 }}">
+                {% if post.image %}
+                <div class="card-image">
+                    <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
+                    <span class="card-badge">{{ post.event | default: "Talk" }}</span>
+                </div>
+                {% endif %}
+
+                <div class="card-content">
+                    <div class="card-meta">
+                        <span>
+                            <i class="far fa-calendar"></i>
+                            {{ post.date | date: "%b %d, %Y" }}
+                        </span>
+                        {% if post.location %}
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{ post.location }}
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    <h3 class="card-title">
+                        <a href="{{ post.url }}">{{ post.title }}</a>
+                    </h3>
+
+                    <p class="card-description">
+                        {{ post.description | default: post.excerpt | strip_html | truncate: 150 }}
+                    </p>
+
+                    <div class="card-footer">
+                        <a href="{{ post.url }}" class="card-link">
+                            View Details
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        {% if post.slides %}
+                        <a href="{{ post.slides }}" target="_blank" class="btn btn-ghost" style="padding: var(--space-2) var(--space-4);">
+                            <i class="fas fa-file-powerpoint"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        {% if site.categories.talks.size == 0 %}
+        <div style="text-align: center; padding: var(--space-20); color: var(--color-text-secondary);">
+            <i class="fas fa-microphone-alt" style="font-size: var(--text-6xl); margin-bottom: var(--space-6); opacity: 0.3;"></i>
+            <h3>No talks yet</h3>
+            <p>Check back soon for upcoming speaking engagements!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
