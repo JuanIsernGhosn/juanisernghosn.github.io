@@ -1,12 +1,10 @@
+- name: Associate cloud engineer
+  institution: Google Cloud
+  date: December 2025
+  file: "/assets/documents/certifications/Google-Cloud-ACE.pdf"
+  url: "https://www.credly.com/badges/7b9b61f2-fd2e-4742-bd33-e2b4f79374b9/public_url"
+
 - name: "Cambridge English: First (FCE) – CEFR level B2"
   institution: "Cambridge Assessment English"
   date: June 2018
-  url: "/assets/documents/B2-Results.pdf"
-
-
-
-
-
-
-
-
+  file: "/assets/documents/certifications/B2-Results.pdf"
