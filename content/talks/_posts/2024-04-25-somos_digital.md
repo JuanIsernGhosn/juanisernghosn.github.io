@@ -6,6 +6,7 @@ image: "/assets/img/2024-04-25-somos_digital/talk.jpg"
 image_description: "Speaking at the 'AI Perspectives and Challenges' panel in Torremolinos."
 date: 2024-04-25 10:45:00 +0200
 read_time: 4
+event: "Presentation"
 ---
 
 On **April 25th, 2024**, I participated in the roundtable **"AI Perspectives and Challenges"** at the **4th Somos Digital Meeting** in Torremolinos. The panel brought together professionals from technology, education, and digital transformation to discuss the ethical, regulatory, and societal implications of artificial intelligence.

@@ -6,6 +6,7 @@ image: "/assets/img/2025-03-19-orbitas_fest_talk/talk_me.jpg"
 image_description: "Speaking at the Órbitas round table in Jaén."
 date: 2025-03-19 18:00:00 +0200
 read_time: 5
+event: "Presentation"
 ---
 
 As part of the **Órbitas Festival**, organized by the [Escuela de Arte y Superior de Diseño José Nogué](https://escueladeartejosenogue.es/), I was invited to take part in the round table titled **“The Age of AI: Impact, Ethics, and Creative Potential.”**

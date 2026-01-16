@@ -6,6 +6,7 @@ image: "/assets/img/2024-10-16-breakfast_dating_ai/talk_context.jpg"
 image_description: "Speaking at the Breakfast Dating Innovation event in Granada."
 date: 2024-10-16 09:00:00 +0200
 read_time: 5
+event: "Talk"
 ---
 
 On October 16th, 2024, I had the opportunity to deliver a keynote at the event **“Breakfast Dating Innovation: Urban Automation with Artificial Intelligence,”** held at the *Centro de Formación Reina Isabel* in Granada. ACELERAPYME, the Andalusian Agency for Innovation and Development, organized this event in collaboration with the **Escuela de Negocios de Andalucía** and **Innovasur**.

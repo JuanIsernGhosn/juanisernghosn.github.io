@@ -6,6 +6,7 @@ image: "/assets/img/2023-03-06-InnovaPilas/talk_me.png"
 image_description: "Me speaking about AI-powered smart city solutions at INNOVA'23."
 date: 2023-03-06 11:00:00 +0200
 read_time: 5
+event: "Talk"
 ---
 
 On **March 6th, 2023**, I delivered a talk titled **"Artificial Intelligence Applied to City Management"** at the **INNOVA'23 conference** in Pilas, Seville.

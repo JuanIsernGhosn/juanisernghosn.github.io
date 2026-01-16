@@ -6,6 +6,7 @@ image: "/assets/img/2024-10-04-UGR-DATCOM/talk.jpg"
 image_description: "Juan Isern speaking at ETSIIT - UGR"
 date: 2024-10-04 18:00:00 +0200
 read_time: 5
+event: "Talk"
 ---
 
 On **October 4th, 2024**, I had the pleasure of delivering the **inaugural talk** for the 2024–2025 academic year of the **Master's Degree in Data Science and Computer Engineering** at the **University of Granada’s School of Computer and Telecommunications Engineering (ETSIIT)**.

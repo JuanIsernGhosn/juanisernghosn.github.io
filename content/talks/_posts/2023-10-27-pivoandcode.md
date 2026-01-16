@@ -1,11 +1,12 @@
 ---
 layout: talk
 title: "From zero to hero in MLOps – PivoAndCode"
-description: "Introductory talk on MLOps pipeline practices, hosted at XauenDevs’ PivoAndCode meetup in Jaén. We walked through every stage of the ML lifecycle with a production mindset."
+description: "Introductory talk on MLOps pipeline practices, hosted at XauenDevs' PivoAndCode meetup in Jaén. We walked through every stage of the ML lifecycle with a production mindset."
 image: "/assets/img/2023-10-27-pivoandcode/talk_poster.jpg"
 image_description: "Presenting MLOps concepts at CuatroGatos Coworking, Jaén"
 date: 2023-10-27 19:00:00 +0200
 read_time: 4
+event: "Presentation"
 ---
 
 On **October 27th, 2023**, I had the pleasure of speaking at the **PivoAndCode** series hosted by **XauenDevs** in Jaén, a community of developers passionate about sharing knowledge and growing together. The event took place at **CuatroGatos Coworking**, a vibrant local hub of innovation.

@@ -6,6 +6,7 @@ image: "/assets/img/2024-07-25-UGR-INCIBE/talk.png"
 image_description: "Me speaking at the CiberUGR Chair event."
 date: 2024-07-24 12:30:00 +0200
 read_time: 5
+event: "Talk"
 ---
 
 As part of the *Cybersecurity Course for Companies*, organized by the [CiberUGR Chair](https://citic.ugr.es/), I was invited to deliver a talk titled **“Innovation and Security in Smart Urban Infrastructures.”**
