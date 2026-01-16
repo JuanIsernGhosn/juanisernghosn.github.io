@@ -93,12 +93,12 @@ This technology demonstrates how **AI and smart city platforms** can address rea
 
 ---
 
-📻 **Radio Station:** Onda Cero Granada (92.0 FM)
-📅 **Air Date:** April 11, 2024 – 13:19h
-🎙️ **Program:** Más de Uno Granada
-🎤 **Guest:** Juan Isern Ghosn – AI Director, Innovasur
-🏙️ **Topic:** AI-Based Vandalism Detection System in Granada
-🎧 **Listen:** [iVoox Link](https://www.ivoox.com/entrevista-onda-cero-a-juan-isern-director-audios-mp3_rf_127396355_1.html)
+📻 **Radio Station:** Onda Cero Granada (92.0 FM).  
+📅 **Air Date:** April 11, 2024 – 13:19h.  
+🎙️ **Program:** Más de Uno Granada.  
+🎤 **Guest:** Juan Isern Ghosn – AI Director, Innovasur.  
+🏙️ **Topic:** AI-Based Vandalism Detection System in Granada.  
+🎧 **Listen:** [iVoox Link](https://www.ivoox.com/entrevista-onda-cero-a-juan-isern-director-audios-mp3_rf_127396355_1.html).  
 
 ---
 

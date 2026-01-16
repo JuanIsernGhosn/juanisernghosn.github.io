@@ -100,11 +100,11 @@ It was an incredible opportunity to showcase the work we do at Innovasur and to 
 
 ---
 
-📺 **Program:** Enred – Canal Sur
-📅 **Air Date:** January 08, 2025
-🎤 **Featuring:** Juan Isern Ghosn & Jonathan González (Innovasur)
-🏙️ **Topic:** AI-Based Vandalism Detection System in Granada
-🎥 **Watch:** [YouTube Link](https://www.youtube.com/watch?v=rOR9JLHjioM)
+📺 **Program:** Enred – Canal Sur.  
+📅 **Air Date:** January 08, 2025.  
+🎤 **Featuring:** Juan Isern Ghosn & Jonathan González (Innovasur).  
+🏙️ **Topic:** AI-Based Vandalism Detection System in Granada.  
+🎥 **Watch:** [YouTube Link](https://www.youtube.com/watch?v=rOR9JLHjioM).  
 
 ---
 
