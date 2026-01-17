@@ -1,4 +1,4 @@
-.PHONY: help install serve build clean deploy status
+.PHONY: help install serve build clean deploy status compress-images
 
 # Variables
 JEKYLL = bundle exec jekyll
@@ -85,3 +85,7 @@ new-post: ## Crea un nuevo post (uso: make new-post TITLE="Mi Post")
 	echo "" >> $$FILE; \
 	echo "Escribe tu contenido aquí..." >> $$FILE; \
 	echo "✅ Post creado: $$FILE"
+
+compress-images: ## Comprime todas las imágenes del sitio (requiere: brew install imagemagick jpegoptim optipng)
+	@echo "🖼️  Comprimiendo imágenes..."
+	@./scripts/compress_images.sh ./assets/img 85
