@@ -24,7 +24,7 @@ update: ## Actualiza las dependencias
 serve: ## Lanza el servidor de desarrollo en http://localhost:4000
 	@echo "🚀 Lanzando servidor de desarrollo..."
 	@echo "🌐 Abre http://localhost:4000 en tu navegador"
-	$(JEKYLL) serve --livereload
+	$(JEKYLL) serve --livereload --trace
 
 serve-drafts: ## Lanza el servidor incluyendo borradores
 	@echo "🚀 Lanzando servidor con borradores..."
