@@ -699,6 +699,8 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 .ai-orb {
@@ -757,6 +759,8 @@ a {
   font-weight: var(--font-medium);
   outline: none;
   min-width: 0;
+  position: relative;
+  z-index: 1;
 
   &::placeholder {
     color: var(--color-text-tertiary);
@@ -782,6 +786,7 @@ a {
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
+  z-index: 1;
 
   // Shine effect
   &::before {
