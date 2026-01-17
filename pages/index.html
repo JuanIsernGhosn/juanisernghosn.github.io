@@ -19,24 +19,62 @@ permalink: /
                 Transforming businesses through artificial intelligence and machine learning.
                 Specialized in MLOps, deep learning, and building production-ready AI systems at scale.
             </p>
-            <div class="hero-actions">
-                <a href="/contact" class="btn btn-secondary btn-lg">
-                    <span>Get in Touch</span>
-                    <i class="fas fa-envelope"></i>
-                </a>
+
+            <!-- Quick Ask Input - AI Assistant (Principal CTA) -->
+            {% if site.chatbot.enabled %}
+            <div class="hero-ask-container hero-ask-featured">
+                <div class="hero-ask-glow"></div>
+                <div class="hero-ask-wrapper">
+                    <div class="hero-ask-icon">
+                        <div class="ai-orb">
+                            <div class="ai-orb-inner"></div>
+                            <div class="ai-orb-ring"></div>
+                            <div class="ai-orb-ring ai-orb-ring-2"></div>
+                        </div>
+                    </div>
+                    <input
+                        type="text"
+                        id="hero-ask-input"
+                        class="hero-ask-input"
+                        placeholder="Ask my AI clone anything..."
+                        autocomplete="off"
+                    >
+                    <button id="hero-ask-btn" class="hero-ask-btn" aria-label="Ask question">
+                        <span class="btn-text">Ask AI</span>
+                        <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                <div class="hero-ask-suggestions">
+                    <span class="suggestion-label">Try:</span>
+                    <button class="suggestion-chip" data-question="What's your experience with MLOps?">MLOps experience</button>
+                    <button class="suggestion-chip" data-question="Tell me about your AI projects">AI projects</button>
+                    <button class="suggestion-chip" data-question="What technologies do you use?">Tech stack</button>
+                </div>
             </div>
+            {% endif %}
         </div>
 
         <div class="hero-image">
             <div class="hero-img-wrapper">
                 <img src="/assets/img/profile_picture.jpg" alt="Juan Isern">
             </div>
-            <div class="hero-badge">
-                <div class="badge-icon">🚀</div>
-                <div class="badge-text">
-                    Director of AI at
-                    <span>INNOVASUR</span>
+            <div class="hero-badges">
+                <div class="hero-badge">
+                    <div class="badge-icon">🚀</div>
+                    <div class="badge-text">
+                        Director of AI at
+                        <span>INNOVASUR</span>
+                    </div>
                 </div>
+                <a href="/contact" class="hero-badge hero-badge-contact">
+                    <div class="badge-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="badge-text">
+                        <span>Get in Touch</span>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
