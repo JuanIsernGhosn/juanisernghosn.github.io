@@ -103,3 +103,6 @@ $RECYCLE.BIN/
 
 # Claude
 .claude/
+
+# Export
+export/
