@@ -31,6 +31,14 @@ instagram_username: juaniserng
 linkedin_username: juan-isern
 email_address: juan.isern95@gmail.com
 
+# Chatbot settings
+chatbot:
+  enabled: true
+  api_url: "https://genai-app-myportfolio-1-1768571563675-160039173797.us-central1.run.app/?key=hmhic6k854tipu0d"
+  title: "Chat with Me 🤖"
+  subtitle: "AI-powered assistant"
+  placeholder: "Ask me anything..."
+  welcome_message: "Hey! I'm Juan's AI clone. Ask me about my experience, skills, or anything else!"
 
 # Build settings
 theme: minima

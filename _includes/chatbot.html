@@ -1,0 +1,326 @@
+{% if site.chatbot.enabled %}
+<!-- Chatbot Toggle Button -->
+<button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open chat">
+    <svg class="chat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+</button>
+
+<!-- Chatbot Window -->
+<div class="chatbot-window" id="chatbot-window">
+    <div class="chatbot-header">
+        <div class="chatbot-avatar">
+            <img src="/assets/img/profile_picture.jpg" alt="{{ site.title }}">
+        </div>
+        <div class="chatbot-info">
+            <h4 class="chatbot-title">{{ site.chatbot.title }}</h4>
+            <span class="chatbot-status">{{ site.chatbot.subtitle }}</span>
+        </div>
+    </div>
+
+    <div class="chatbot-messages" id="chatbot-messages">
+        <div class="chat-message bot">
+            <div class="message-avatar">
+                <img src="/assets/img/profile_picture.jpg" alt="{{ site.title }}">
+            </div>
+            <div class="message-content">{{ site.chatbot.welcome_message }}</div>
+        </div>
+    </div>
+
+    <div class="chatbot-input">
+        <input
+            type="text"
+            id="chatbot-input"
+            placeholder="{{ site.chatbot.placeholder }}"
+            autocomplete="off"
+        >
+        <button id="chatbot-send" aria-label="Send message">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<!-- Chatbot Script -->
+<script>
+    const CHATBOT_CONFIG = {
+        apiUrl: '{{ site.chatbot.api_url }}',
+        profileImage: '/assets/img/profile_picture.jpg'
+    };
+
+    class Chatbot {
+        constructor() {
+            this.toggle = document.getElementById('chatbot-toggle');
+            this.window = document.getElementById('chatbot-window');
+            this.messages = document.getElementById('chatbot-messages');
+            this.input = document.getElementById('chatbot-input');
+            this.sendBtn = document.getElementById('chatbot-send');
+            this.history = []; // Store conversation history
+
+            this.init();
+        }
+
+        init() {
+            this.toggle.addEventListener('click', () => this.toggleChat());
+            this.sendBtn.addEventListener('click', () => this.sendMessage());
+            this.input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    this.sendMessage();
+                }
+            });
+        }
+
+        toggleChat() {
+            this.toggle.classList.toggle('active');
+            this.window.classList.toggle('active');
+
+            if (this.window.classList.contains('active')) {
+                this.input.focus();
+            }
+        }
+
+        // Open chat and send a message (for hero quick ask)
+        openWithMessage(message) {
+            if (!message || !message.trim()) return;
+
+            // Open the chat if not already open
+            if (!this.window.classList.contains('active')) {
+                this.toggle.classList.add('active');
+                this.window.classList.add('active');
+            }
+
+            // Set the message and send it
+            this.input.value = message.trim();
+            this.sendMessage();
+        }
+
+        addMessage(type, content) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${type}`;
+
+            const avatarContent = type === 'bot'
+                ? `<img src="${CHATBOT_CONFIG.profileImage}" alt="Juan">`
+                : '<i class="fas fa-user"></i>';
+
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${avatarContent}</div>
+                <div class="message-content">${this.formatMessage(content)}</div>
+            `;
+
+            this.messages.appendChild(messageDiv);
+            this.scrollToBottom();
+            return messageDiv;
+        }
+
+        // Create an empty bot message for streaming
+        createStreamingMessage() {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-message bot';
+            messageDiv.innerHTML = `
+                <div class="message-avatar">
+                    <img src="${CHATBOT_CONFIG.profileImage}" alt="Juan">
+                </div>
+                <div class="message-content"></div>
+            `;
+            this.messages.appendChild(messageDiv);
+            this.scrollToBottom();
+            return messageDiv.querySelector('.message-content');
+        }
+
+        // Update streaming message content
+        updateStreamingMessage(contentElement, text) {
+            contentElement.innerHTML = this.formatMessage(text);
+            this.scrollToBottom();
+        }
+
+        formatMessage(content) {
+            // Basic markdown-like formatting
+            return content
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n/g, '<br>');
+        }
+
+        showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chat-message bot';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">
+                    <img src="${CHATBOT_CONFIG.profileImage}" alt="Juan">
+                </div>
+                <div class="message-content">
+                    <div class="chat-typing">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            `;
+            this.messages.appendChild(typingDiv);
+            this.scrollToBottom();
+        }
+
+        hideTyping() {
+            const typing = document.getElementById('typing-indicator');
+            if (typing) typing.remove();
+        }
+
+        scrollToBottom() {
+            this.messages.scrollTop = this.messages.scrollHeight;
+        }
+
+        setInputState(disabled) {
+            this.input.disabled = disabled;
+            this.sendBtn.disabled = disabled;
+        }
+
+        async sendMessage() {
+            const message = this.input.value.trim();
+            if (!message) return;
+
+            // Add user message
+            this.addMessage('user', message);
+            this.input.value = '';
+            this.setInputState(true);
+            this.showTyping();
+
+            try {
+                // Build the API URL with /chat/stream endpoint
+                const url = new URL(CHATBOT_CONFIG.apiUrl);
+                const baseUrl = url.origin;
+                const keyParam = url.search; // includes the ? prefix
+
+                const response = await fetch(`${baseUrl}/chat/stream${keyParam}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        history: this.history
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Hide typing indicator and create streaming message
+                this.hideTyping();
+                const contentElement = this.createStreamingMessage();
+                let fullResponse = '';
+
+                // Process the SSE stream
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n');
+
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            const data = line.slice(6);
+                            if (data === '[DONE]') break;
+
+                            try {
+                                const parsed = JSON.parse(data);
+                                if (parsed.text) {
+                                    fullResponse += parsed.text;
+                                    this.updateStreamingMessage(contentElement, fullResponse);
+                                }
+                            } catch (e) {
+                                // Skip malformed JSON chunks
+                            }
+                        }
+                    }
+                }
+
+                // Update history for context in future messages
+                this.history.push({ role: 'user', content: message });
+                this.history.push({ role: 'assistant', content: fullResponse });
+
+                // Keep history manageable (last 10 exchanges)
+                if (this.history.length > 20) {
+                    this.history = this.history.slice(-20);
+                }
+
+                // Ensure final formatting is applied
+                if (fullResponse) {
+                    this.updateStreamingMessage(contentElement, fullResponse);
+                } else {
+                    contentElement.textContent = 'I received your message but got an empty response.';
+                }
+
+            } catch (error) {
+                this.hideTyping();
+                console.error('Chat error:', error);
+                this.addMessage('bot', 'Oops! Something went wrong. Please try again.');
+            }
+
+            this.setInputState(false);
+            this.input.focus();
+        }
+    }
+
+    // Initialize chatbot when DOM is ready
+    let chatbotInstance = null;
+
+    function initChatbot() {
+        chatbotInstance = new Chatbot();
+
+        // Hero quick ask functionality
+        const heroAskInput = document.getElementById('hero-ask-input');
+        const heroAskBtn = document.getElementById('hero-ask-btn');
+
+        if (heroAskInput && heroAskBtn) {
+            heroAskBtn.addEventListener('click', () => {
+                const message = heroAskInput.value.trim();
+                if (message && chatbotInstance) {
+                    chatbotInstance.openWithMessage(message);
+                    heroAskInput.value = '';
+                }
+            });
+
+            heroAskInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    const message = heroAskInput.value.trim();
+                    if (message && chatbotInstance) {
+                        chatbotInstance.openWithMessage(message);
+                        heroAskInput.value = '';
+                    }
+                }
+            });
+        }
+
+        // Suggestion chips functionality
+        const suggestionChips = document.querySelectorAll('.suggestion-chip');
+        suggestionChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                const question = chip.getAttribute('data-question');
+                if (question && chatbotInstance) {
+                    chatbotInstance.openWithMessage(question);
+                }
+            });
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initChatbot);
+    } else {
+        initChatbot();
+    }
+</script>
+{% endif %}
