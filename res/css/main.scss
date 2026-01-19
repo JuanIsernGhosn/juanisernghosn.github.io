@@ -556,6 +556,12 @@ a {
   color: var(--color-text-secondary);
   line-height: var(--leading-relaxed);
   margin-bottom: var(--space-8);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+  @media (max-width: 768px) {
+    font-size: var(--text-lg);
+  }
 }
 
 // Mejora de contraste en dark mode para hero
