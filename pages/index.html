@@ -7,13 +7,14 @@ permalink: /
 
 <!-- Hero Section -->
 <section class="hero-section">
+    <canvas id="particles-canvas" class="particles-canvas"></canvas>
     <div class="hero-background"></div>
     <div class="hero-container">
         <div class="hero-content">
             <span class="hero-label">Welcome</span>
             <h1>
                 Hi, I'm <span class="hero-highlight">Juan Isern</span><br>
-                AI Director & MLOps Engineer
+                <span class="typing-text" id="typing-text"></span><span class="typing-cursor">|</span>
             </h1>
             <p class="hero-description">
                 Transforming businesses through artificial intelligence and machine learning.
@@ -85,20 +86,20 @@ permalink: /
 <section class="section" style="background: var(--color-bg-secondary);">
     <div class="container">
         <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-value">8+</div>
+            <div class="stat-card tilt-card">
+                <div class="stat-value" data-count="8" data-suffix="+">0</div>
                 <div class="stat-label">Years Experience</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-value">50+</div>
+            <div class="stat-card tilt-card">
+                <div class="stat-value" data-count="50" data-suffix="+">0</div>
                 <div class="stat-label">Projects Delivered</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-value">15+</div>
+            <div class="stat-card tilt-card">
+                <div class="stat-value" data-count="15" data-suffix="+">0</div>
                 <div class="stat-label">Technologies</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-value">3</div>
+            <div class="stat-card tilt-card">
+                <div class="stat-value" data-count="3" data-suffix="">0</div>
                 <div class="stat-label">Publications</div>
             </div>
         </div>
@@ -173,8 +174,8 @@ permalink: /
     </div>
 </section>
 
-<!-- Expertise Section -->
-<section class="section">
+<!-- Expertise Section - Infinite Marquee -->
+<section class="section skills-section">
     <div class="container">
         <div class="section-header">
             <span class="section-label">Skills</span>
@@ -183,14 +184,49 @@ permalink: /
                 Cutting-edge technologies and frameworks I work with
             </p>
         </div>
+    </div>
 
-        <div class="skills-container">
-            {% for skill in site.data.expertise %}
-            <div class="skill-tag" style="border-color: rgb({{ skill.rgb }});" data-aos="zoom-in" data-aos-delay="{{ forloop.index0 | times: 50 }}">
-                <i class="{{ skill.icon }}" style="color: rgb({{ skill.rgb }});"></i>
-                <span>{{ skill.name }}</span>
+    <!-- Marquee Container - Full Width -->
+    <div class="marquee-container">
+        <div class="marquee-track">
+            <div class="marquee-content">
+                {% for skill in site.data.expertise %}
+                <div class="marquee-item" style="--skill-color: rgb({{ skill.rgb }});">
+                    <i class="{{ skill.icon }}"></i>
+                    <span>{{ skill.name }}</span>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            <div class="marquee-content" aria-hidden="true">
+                {% for skill in site.data.expertise %}
+                <div class="marquee-item" style="--skill-color: rgb({{ skill.rgb }});">
+                    <i class="{{ skill.icon }}"></i>
+                    <span>{{ skill.name }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Second row - reverse direction -->
+    <div class="marquee-container marquee-reverse">
+        <div class="marquee-track">
+            <div class="marquee-content">
+                {% for skill in site.data.expertise %}
+                <div class="marquee-item" style="--skill-color: rgb({{ skill.rgb }});">
+                    <i class="{{ skill.icon }}"></i>
+                    <span>{{ skill.name }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="marquee-content" aria-hidden="true">
+                {% for skill in site.data.expertise %}
+                <div class="marquee-item" style="--skill-color: rgb({{ skill.rgb }});">
+                    <i class="{{ skill.icon }}"></i>
+                    <span>{{ skill.name }}</span>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </section>
@@ -244,7 +280,7 @@ permalink: /
 
         <div style="max-width: 900px; margin: 0 auto;">
             {% for publication in site.data.research_work %}
-            <article class="card" style="margin-bottom: var(--space-6);" data-aos="fade-up" data-aos-delay="{{ forloop.index0 | times: 100 }}">
+            <article class="card tilt-card" style="margin-bottom: var(--space-6);" data-aos="fade-up" data-aos-delay="{{ forloop.index0 | times: 100 }}">
                 <div class="card-content">
                     <h3 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-3); color: var(--color-text-primary);">
                         {{ publication.title }}
@@ -287,7 +323,7 @@ permalink: /
 
         <div style="max-width: 800px; margin: 0 auto; display: grid; gap: var(--space-6);">
             {% for cert in site.data.certifications %}
-            <div class="card" style="padding: var(--space-8);" data-aos="fade-up">
+            <div class="card tilt-card" style="padding: var(--space-8);" data-aos="fade-up">
                 <div style="display: flex; align-items: start; gap: var(--space-6);">
                     <div style="width: 60px; height: 60px; border-radius: var(--radius-lg); background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                         <i class="fas fa-certificate" style="font-size: var(--text-2xl); color: white;"></i>
@@ -492,5 +528,268 @@ if (window.innerWidth <= 768) {
             course.classList.add('course-hidden');
         }
     });
+}
+
+// ==========================================
+// PARTICLES NEURAL NETWORK ANIMATION
+// ==========================================
+class ParticlesNetwork {
+    constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.particles = [];
+        this.mouse = { x: null, y: null, radius: 150 };
+        this.particleCount = window.innerWidth < 768 ? 50 : 100;
+        this.connectionDistance = 120;
+        this.init();
+    }
+
+    init() {
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+        this.canvas.addEventListener('mousemove', (e) => {
+            const rect = this.canvas.getBoundingClientRect();
+            this.mouse.x = e.clientX - rect.left;
+            this.mouse.y = e.clientY - rect.top;
+        });
+        this.canvas.addEventListener('mouseleave', () => {
+            this.mouse.x = null;
+            this.mouse.y = null;
+        });
+        this.createParticles();
+        this.animate();
+    }
+
+    resize() {
+        const section = this.canvas.parentElement;
+        this.canvas.width = section.offsetWidth;
+        this.canvas.height = section.offsetHeight;
+    }
+
+    createParticles() {
+        this.particles = [];
+        for (let i = 0; i < this.particleCount; i++) {
+            this.particles.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                radius: Math.random() * 2 + 1,
+                opacity: Math.random() * 0.5 + 0.2
+            });
+        }
+    }
+
+    animate() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // Get theme
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const particleColor = isDark ? '255, 255, 255' : '99, 102, 241';
+        const lineColor = isDark ? '255, 255, 255' : '99, 102, 241';
+
+        // Update and draw particles
+        this.particles.forEach((p, i) => {
+            // Mouse interaction
+            if (this.mouse.x && this.mouse.y) {
+                const dx = this.mouse.x - p.x;
+                const dy = this.mouse.y - p.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < this.mouse.radius) {
+                    const force = (this.mouse.radius - dist) / this.mouse.radius;
+                    p.vx -= (dx / dist) * force * 0.02;
+                    p.vy -= (dy / dist) * force * 0.02;
+                }
+            }
+
+            // Move
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Bounce off walls
+            if (p.x < 0 || p.x > this.canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > this.canvas.height) p.vy *= -1;
+
+            // Keep in bounds
+            p.x = Math.max(0, Math.min(this.canvas.width, p.x));
+            p.y = Math.max(0, Math.min(this.canvas.height, p.y));
+
+            // Draw particle
+            this.ctx.beginPath();
+            this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            this.ctx.fillStyle = `rgba(${particleColor}, ${p.opacity})`;
+            this.ctx.fill();
+
+            // Draw connections
+            for (let j = i + 1; j < this.particles.length; j++) {
+                const p2 = this.particles[j];
+                const dx = p.x - p2.x;
+                const dy = p.y - p2.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < this.connectionDistance) {
+                    const opacity = (1 - dist / this.connectionDistance) * 0.3;
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(p.x, p.y);
+                    this.ctx.lineTo(p2.x, p2.y);
+                    this.ctx.strokeStyle = `rgba(${lineColor}, ${opacity})`;
+                    this.ctx.lineWidth = 0.5;
+                    this.ctx.stroke();
+                }
+            }
+        });
+
+        requestAnimationFrame(() => this.animate());
+    }
+}
+
+// Initialize particles
+const particlesCanvas = document.getElementById('particles-canvas');
+if (particlesCanvas) {
+    new ParticlesNetwork(particlesCanvas);
+}
+
+// ==========================================
+// TYPING EFFECT
+// ==========================================
+class TypeWriter {
+    constructor(element, words, wait = 2000) {
+        this.element = element;
+        this.words = words;
+        this.wait = wait;
+        this.wordIndex = 0;
+        this.txt = '';
+        this.isDeleting = false;
+        this.type();
+    }
+
+    type() {
+        const current = this.wordIndex % this.words.length;
+        const fullTxt = this.words[current];
+
+        if (this.isDeleting) {
+            this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+            this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.element.textContent = this.txt;
+
+        let typeSpeed = 100;
+
+        if (this.isDeleting) {
+            typeSpeed /= 2;
+        }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+            typeSpeed = this.wait;
+            this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+            this.isDeleting = false;
+            this.wordIndex++;
+            typeSpeed = 500;
+        }
+
+        setTimeout(() => this.type(), typeSpeed);
+    }
+}
+
+// Initialize typing effect
+const typingElement = document.getElementById('typing-text');
+if (typingElement) {
+    const words = [
+        'AI Director',
+        'MLOps Engineer',
+        'Deep Learning Expert'
+    ];
+    new TypeWriter(typingElement, words, 2000);
+}
+
+// ==========================================
+// ANIMATED COUNTERS
+// ==========================================
+class AnimatedCounter {
+    constructor() {
+        this.counters = document.querySelectorAll('[data-count]');
+        this.animated = new Set();
+        this.init();
+    }
+
+    init() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !this.animated.has(entry.target)) {
+                    this.animated.add(entry.target);
+                    this.animateCounter(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        this.counters.forEach(counter => observer.observe(counter));
+    }
+
+    animateCounter(element) {
+        const target = parseInt(element.dataset.count);
+        const suffix = element.dataset.suffix || '';
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                element.textContent = target + suffix;
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current) + suffix;
+            }
+        }, 16);
+    }
+}
+
+new AnimatedCounter();
+
+// ==========================================
+// 3D TILT EFFECT
+// ==========================================
+class TiltEffect {
+    constructor() {
+        this.cards = document.querySelectorAll('.tilt-card');
+        this.init();
+    }
+
+    init() {
+        this.cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => this.handleMove(e, card));
+            card.addEventListener('mouseleave', (e) => this.handleLeave(e, card));
+            card.addEventListener('mouseenter', (e) => this.handleEnter(e, card));
+        });
+    }
+
+    handleMove(e, card) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    }
+
+    handleLeave(e, card) {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        card.style.boxShadow = '';
+    }
+
+    handleEnter(e, card) {
+        card.style.transition = 'transform 0.1s ease-out';
+    }
+}
+
+// Initialize on desktop only (tilt doesn't work well on touch)
+if (window.matchMedia('(hover: hover)').matches) {
+    new TiltEffect();
 }
 </script>
