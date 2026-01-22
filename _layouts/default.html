@@ -9,6 +9,9 @@
 </head>
 
 <body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
     <!-- Navigation Header -->
     <nav class="nav-header">
         <div class="nav-container">
@@ -189,6 +192,17 @@
                 duration: 800,
                 once: true,
                 offset: 100
+            });
+        }
+
+        // Scroll Progress Indicator
+        const scrollProgress = document.getElementById('scroll-progress');
+        if (scrollProgress) {
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                scrollProgress.style.width = scrollPercent + '%';
             });
         }
     </script>
