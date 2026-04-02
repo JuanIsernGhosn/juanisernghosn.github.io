@@ -5,8 +5,23 @@ description: Juan Isern - AI Director & MLOps Engineer Portfolio
 permalink: /
 ---
 
+<!-- Side Section Navigation -->
+<nav class="side-nav" id="side-nav">
+    <a href="#hero" class="side-nav-dot active" data-section="hero" data-label="Home"></a>
+    <a href="#stats" class="side-nav-dot" data-section="stats" data-label="Stats"></a>
+    <a href="#about" class="side-nav-dot" data-section="about" data-label="About"></a>
+    <a href="#experience" class="side-nav-dot" data-section="experience" data-label="Experience"></a>
+    <a href="#skills" class="side-nav-dot" data-section="skills" data-label="Skills"></a>
+    <a href="#education" class="side-nav-dot" data-section="education" data-label="Education"></a>
+    <a href="#publications" class="side-nav-dot" data-section="publications" data-label="Research"></a>
+    <a href="#certifications" class="side-nav-dot" data-section="certifications" data-label="Certs"></a>
+    <a href="#talks" class="side-nav-dot" data-section="talks" data-label="Talks"></a>
+    <a href="#contact-cta" class="side-nav-dot" data-section="contact-cta" data-label="Contact"></a>
+    <a href="#courses" class="side-nav-dot" data-section="courses" data-label="Courses"></a>
+</nav>
+
 <!-- Hero Section -->
-<section class="hero-section">
+<section class="hero-section" id="hero">
     <canvas id="particles-canvas" class="particles-canvas"></canvas>
     <div class="hero-background"></div>
     <div class="hero-container">
@@ -83,7 +98,7 @@ permalink: /
 </section>
 
 <!-- Stats Section -->
-<section class="section" style="background: var(--color-bg-secondary);">
+<section class="section" id="stats" style="background: var(--color-bg-secondary);">
     <div class="container">
         <div class="stats-grid">
             <div class="stat-card tilt-card">
@@ -107,7 +122,7 @@ permalink: /
 </section>
 
 <!-- About Section -->
-<section class="section">
+<section class="section" id="about">
     <div class="container">
         <div class="section-header">
             <span class="section-label">About Me</span>
@@ -126,7 +141,7 @@ permalink: /
 </section>
 
 <!-- Experience Section -->
-<section class="section" style="background: var(--color-bg-secondary);">
+<section class="section" id="experience" style="background: var(--color-bg-secondary);">
     <div class="container">
         <div class="section-header">
             <span class="section-label">Experience</span>
@@ -175,7 +190,7 @@ permalink: /
 </section>
 
 <!-- Expertise Section - Infinite Marquee -->
-<section class="section skills-section">
+<section class="section skills-section" id="skills">
     <div class="container">
         <div class="section-header">
             <span class="section-label">Skills</span>
@@ -232,7 +247,7 @@ permalink: /
 </section>
 
 <!-- Education Section -->
-<section class="section" style="background: var(--color-bg-secondary);">
+<section class="section" id="education" style="background: var(--color-bg-secondary);">
     <div class="container">
         <div class="section-header">
             <span class="section-label">Education</span>
@@ -268,7 +283,7 @@ permalink: /
 </section>
 
 <!-- Publications Section -->
-<section class="section" style="background: var(--color-bg-secondary);">
+<section class="section" id="publications">
     <div class="container">
         <div class="section-header">
             <span class="section-label">Research</span>
@@ -311,7 +326,7 @@ permalink: /
 </section>
 
 <!-- Certifications Section -->
-<section class="section">
+<section class="section" id="certifications" style="background: var(--color-bg-secondary);">
     <div class="container">
         <div class="section-header">
             <span class="section-label">Credentials</span>
@@ -364,7 +379,7 @@ permalink: /
 </section>
 
 <!-- Recent Talks Section -->
-<section class="section">
+<section class="section" id="talks">
     <div class="container">
         <div class="section-header">
             <span class="section-label">Speaking</span>
@@ -427,7 +442,7 @@ permalink: /
 </section>
 
 <!-- CTA Section -->
-<section class="section" style="background: var(--gradient-primary); color: white; text-align: center;">
+<section class="section" id="contact-cta" style="background: var(--gradient-primary); color: white; text-align: center;">
     <div class="container">
         <h2 style="color: white; font-size: var(--text-5xl); margin-bottom: var(--space-6);">
             Let's Build Something Amazing Together
@@ -449,7 +464,7 @@ permalink: /
 </section>
 
 <!-- Courses Section (Compact) -->
-<section class="section" style="background: var(--color-bg-secondary);">
+<section class="section" id="courses" style="background: var(--color-bg-secondary);">
     <div class="container">
         <div class="section-header">
             <span class="section-label">Learning</span>
@@ -749,47 +764,76 @@ class AnimatedCounter {
 
 new AnimatedCounter();
 
-// ==========================================
-// 3D TILT EFFECT
-// ==========================================
-class TiltEffect {
-    constructor() {
-        this.cards = document.querySelectorAll('.tilt-card');
-        this.init();
-    }
 
-    init() {
-        this.cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => this.handleMove(e, card));
-            card.addEventListener('mouseleave', (e) => this.handleLeave(e, card));
-            card.addEventListener('mouseenter', (e) => this.handleEnter(e, card));
+// ==========================================
+// GSAP SCROLLTRIGGER — SIDE NAV + ANIMATIONS
+// ==========================================
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+    const sideNav = document.getElementById('side-nav');
+    const dots = document.querySelectorAll('.side-nav-dot');
+    const sections = [
+        'hero', 'stats', 'about', 'experience', 'skills',
+        'education', 'publications', 'certifications', 'talks', 'contact-cta', 'courses'
+    ];
+
+    // Show/hide side nav (hidden in hero, visible after)
+    ScrollTrigger.create({
+        trigger: '#stats',
+        start: 'top 80%',
+        onEnter: () => sideNav.classList.add('visible'),
+        onLeaveBack: () => sideNav.classList.remove('visible')
+    });
+
+    // Track active section
+    sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        ScrollTrigger.create({
+            trigger: el,
+            start: 'top center',
+            end: 'bottom center',
+            onEnter: () => setActiveDot(id),
+            onEnterBack: () => setActiveDot(id)
+        });
+    });
+
+    function setActiveDot(id) {
+        dots.forEach(dot => {
+            dot.classList.toggle('active', dot.dataset.section === id);
         });
     }
 
-    handleMove(e, card) {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
+    // Smooth scroll on dot click
+    dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.getElementById(dot.dataset.section);
+            if (target) {
+                gsap.to(window, {
+                    duration: 0.8,
+                    scrollTo: { y: target, offsetY: 0 },
+                    ease: 'power2.inOut'
+                });
+            }
+        });
+    });
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-    }
-
-    handleLeave(e, card) {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-        card.style.boxShadow = '';
-    }
-
-    handleEnter(e, card) {
-        card.style.transition = 'transform 0.1s ease-out';
-    }
-}
-
-// Initialize on desktop only (tilt doesn't work well on touch)
-if (window.matchMedia('(hover: hover)').matches) {
-    new TiltEffect();
+    // Parallax effect on section headers (doesn't conflict with AOS)
+    gsap.utils.toArray('.section-header').forEach(header => {
+        gsap.from(header.querySelector('.section-title'), {
+            yPercent: 15,
+            duration: 1,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: header,
+                start: 'top 90%',
+                end: 'top 50%',
+                scrub: 0.5
+            }
+        });
+    });
 }
 </script>

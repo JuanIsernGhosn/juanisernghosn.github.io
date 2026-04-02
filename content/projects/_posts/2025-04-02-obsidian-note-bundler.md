@@ -73,7 +73,7 @@ NoteName/
 The plugin provides a clean modal interface where users can configure every aspect of the export before running it:
 
 <p class="text-center">
-  <img src="/assets/img/2025-04-02-obsidian-note-bundler/export-modal.png" width="70%" title="Export modal with configuration options">
+  <img src="/assets/img/2025-04-02-obsidian-note-bundler/export-modal.png" width="100%" title="Export modal with configuration options">
 </p>
 <p class="text-center"><i>The export modal showing output path, depth, and asset options</i></p>
 
@@ -94,7 +94,7 @@ The plugin provides a clean modal interface where users can configure every aspe
 The plugin integrates naturally into Obsidian's UI through multiple entry points:
 
 <p class="text-center">
-  <img src="/assets/img/2025-04-02-obsidian-note-bundler/ribbon-icon.png" width="50%" title="Ribbon icon in the Obsidian sidebar">
+  <img src="/assets/img/2025-04-02-obsidian-note-bundler/ribbon-icon.png" width="25%" title="Ribbon icon in the Obsidian sidebar">
 </p>
 <p class="text-center"><i>Ribbon icon for quick access from the sidebar</i></p>
 
