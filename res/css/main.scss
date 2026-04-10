@@ -2104,6 +2104,11 @@ a {
     }
   }
 
+  .mermaid {
+    text-align: center;
+    margin: var(--space-6) 0;
+  }
+
   blockquote {
     border-left: 3px solid var(--color-primary);
     padding: var(--space-4) var(--space-6);
