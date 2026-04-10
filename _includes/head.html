@@ -27,5 +27,14 @@
  <!-- MathJax (for mathematical notation in posts) -->
  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
+ <!-- Mermaid (for diagrams in posts) -->
+ <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+ <script>
+   document.addEventListener('DOMContentLoaded', function() {
+     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default';
+     mermaid.initialize({ startOnLoad: true, theme: theme, securityLevel: 'loose' });
+   });
+ </script>
+
  <!-- SEO Tags -->
  {% seo %}
